@@ -15,33 +15,45 @@ class ScrollableLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     var container = Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(20.0),
         image: const DecorationImage(
           image: AssetImage('images/bg.png'),
           fit: BoxFit.cover, // 可以根据需要调整图片的填充方式
         ),
       ),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(8, 11, 8, 9),
       child: const SizedBox(
-          child: Row(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: UserCard(
-              isWhite: true,
-            ),
+          Image(
+            image: AssetImage('images/boost.png'),
+            height: 15,
           ),
-          SizedBox(width: 7.0),
-          Expanded(
-            child: UserCard(
-              isWhite: true,
-            ),
+          SizedBox(
+            height: 9,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: UserCard(
+                  isWhite: true,
+                ),
+              ),
+              SizedBox(width: 7.0),
+              Expanded(
+                child: UserCard(
+                  isWhite: true,
+                ),
+              ),
+            ],
           ),
         ],
       )),
     );
     return Scaffold(
       backgroundColor: Colors.white,
-       appBar: AppBar(
+      appBar: AppBar(
         titleSpacing: 10,
         title: const Text(
           'Daily Picks',
@@ -75,7 +87,40 @@ class ScrollableLayout extends StatelessWidget {
         child: ListView(
           children: [
             container,
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 10.0),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Want to be here too?',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 68, 68, 68), fontSize: 16),
+                ),
+                SizedBox(width: 5.0),
+                Row(
+                  children: [
+                    Text(
+                      'Try Boost',
+                      style: TextStyle(
+                          color: Color.fromARGB(
+                            255,
+                            99,
+                            214,
+                            250,
+                          ),
+                          fontSize: 16),
+                    ),
+                    Image(
+                        image: AssetImage(
+                          'images/arrow.png',
+                        ),
+                        width: 18,
+                        height: 18),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
             ...List.generate(20, (index) => generateRow())
           ],
         ),

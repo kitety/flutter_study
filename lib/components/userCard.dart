@@ -19,22 +19,24 @@ class _UserCardState extends State<UserCard> {
     return SizedBox(
       child: Column(
         children: [
-          const Stack(
-            children: [
-              Image(image: avatarImage, width: double.infinity),
-              Positioned(
-                bottom: 10.0,
-                left: 10,
-                right: 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image(image: likeImage, width: 40, height: 40),
-                    Image(image: chatImage, width: 40, height: 40),
-                  ],
+          Container(
+            child: const Stack(
+              children: [
+                Image(image: avatarImage, width: double.infinity),
+                Positioned(
+                  bottom: 10.0,
+                  left: 10,
+                  right: 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image(image: likeImage, width: 40, height: 40),
+                      Image(image: chatImage, width: 40, height: 40),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Container(
             width: double.infinity,
