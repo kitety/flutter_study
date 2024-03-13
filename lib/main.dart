@@ -88,29 +88,36 @@ class ScrollableLayout extends StatelessWidget {
           children: [
             container,
             const SizedBox(height: 10.0),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Want to be here too?',
                   style: TextStyle(
                       color: Color.fromARGB(255, 68, 68, 68), fontSize: 16),
                 ),
-                SizedBox(width: 5.0),
+                const SizedBox(width: 5.0),
                 Row(
                   children: [
-                    Text(
-                      'Try Boost',
-                      style: TextStyle(
-                          color: Color.fromARGB(
-                            255,
-                            99,
-                            214,
-                            250,
-                          ),
-                          fontSize: 16),
+                    GestureDetector(
+                      onTap: () {
+                        print('Try Boost');
+                      },
+                      child: const Text(
+                        'Try Boost',
+                        style: TextStyle(
+                            color: Color.fromARGB(
+                              255,
+                              99,
+                              214,
+                              250,
+                            ),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                            ),
+                      ),
                     ),
-                    Image(
+                    const Image(
                         image: AssetImage(
                           'images/arrow.png',
                         ),
