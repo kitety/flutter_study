@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_study/components/userHiCard.dart';
 
@@ -14,9 +11,10 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
+  static const textArr = ['Hello', 'Hi', "Holo"];
   int selectedCardIndex = 0;
-  TextEditingController controller = TextEditingController();
 
+  late TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     const avatarImage = AssetImage('images/avatar.png');
@@ -42,7 +40,7 @@ class _UserCardState extends State<UserCard> {
                   children: [
                     const Image(image: likeImage, width: 40, height: 40),
                     GestureDetector(
-                      behavior:HitTestBehavior.translucent,
+                      behavior: HitTestBehavior.translucent,
                       onTap: () {
                         handleImageTap();
                       },
@@ -88,9 +86,6 @@ class _UserCardState extends State<UserCard> {
   }
 
   void handleImageTap() {
-    print('handleImageTap');
-    double screenHeight = MediaQuery.of(context).size.height;
-    double height = screenHeight * 0.55;
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -101,24 +96,22 @@ class _UserCardState extends State<UserCard> {
         ),
       ),
       builder: (BuildContext context) {
-        int padSubtract = Platform.isIOS ? 106 : 84;
         double bottomPad = MediaQuery.of(context).viewInsets.bottom;
-        var width = MediaQuery.of(context).size.width;
-        final bool isPad = width >= 500;
-        double val = isPad ? 70 : max(bottomPad - padSubtract, 0);
+        bool isHidden = bottomPad > 0;
         return SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(bottom: val),
+            padding: EdgeInsets.only(bottom: bottomPad),
             child: StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
               void _handleCardTap(int newIndex) {
                 setState(() {
                   selectedCardIndex = newIndex;
+                  controller.text = textArr[newIndex];
                 });
               }
 
               return SizedBox(
-                height: height,
+                // height: height,
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(22, 33, 22, 0),
                   child: Column(
@@ -137,10 +130,14 @@ class _UserCardState extends State<UserCard> {
                         height: 20,
                       ),
                       CircleAvatar(
-                        child: Image.asset(
-                          'images/avatar.png', // Path to your image
-                          width: 90,
-                          height: 90,
+                        radius: 45, // 设置半径
+                        child: ClipOval(
+                          child: Image.asset(
+                            'images/avatar.png',
+                            width: 90,
+                            height: 90,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -232,39 +229,45 @@ class _UserCardState extends State<UserCard> {
                       const SizedBox(
                         height: 40,
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              print('Get Vip');
-                            },
-                            child: const Text(
-                              'Get VIP',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Color.fromARGB(
-                                  255,
-                                  99,
-                                  214,
-                                  250,
+                      Visibility(
+                        visible: !isHidden,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                print('Get Vip');
+                              },
+                              child: const Text(
+                                'Get VIP',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromARGB(
+                                    255,
+                                    99,
+                                    214,
+                                    250,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const Text(
-                            'to Send UnlimitedMessages',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color.fromARGB(
-                                  255,
-                                  189,
-                                  189,
-                                  189,
-                                )),
-                          ),
-                        ],
+                            const Text(
+                              'to Send Unlimited Messages',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color.fromARGB(
+                                    255,
+                                    189,
+                                    189,
+                                    189,
+                                  )),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -274,6 +277,14 @@ class _UserCardState extends State<UserCard> {
           ),
         );
       },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController(
+      text: textArr[selectedCardIndex],
     );
   }
 }

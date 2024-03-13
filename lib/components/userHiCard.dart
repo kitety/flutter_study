@@ -34,13 +34,16 @@ class UserHiCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.asset(
-                  imgSrc,
-                  fit: BoxFit.cover,
-                  width: 81,
-                  height: 76,
+              AspectRatio(
+                aspectRatio: 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.asset(
+                    imgSrc,
+                    fit: BoxFit.cover,
+                    width: 81,
+                    height: 76,
+                  ),
                 ),
               ),
               const Row(
