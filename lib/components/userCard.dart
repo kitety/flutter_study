@@ -13,6 +13,7 @@ class UserCard extends StatefulWidget {
 class _UserCardState extends State<UserCard> {
   static const textArr = ['Hello', 'Hi', "Holo"];
   int selectedCardIndex = 0;
+  int stoneCount = 1000;
 
   late TextEditingController controller;
   @override
@@ -170,17 +171,17 @@ class _UserCardState extends State<UserCard> {
                       const SizedBox(
                         height: 24,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Balance: 1000',
-                            style: TextStyle(
+                            'Balance: $stoneCount',
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Color.fromARGB(255, 68, 68, 68),
                             ),
                           ),
-                          Image(
+                          const Image(
                             image: AssetImage('images/stone.png'),
                             width: 17,
                           )
@@ -213,6 +214,10 @@ class _UserCardState extends State<UserCard> {
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 print('send Message');
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  stoneCount -= 80;
+                                });
                               },
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,

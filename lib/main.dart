@@ -13,7 +13,7 @@ class ScrollableLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var container = Container(
+    var topCard = Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         image: const DecorationImage(
@@ -22,8 +22,7 @@ class ScrollableLayout extends StatelessWidget {
         ),
       ),
       padding: const EdgeInsets.fromLTRB(8, 11, 8, 9),
-      child: const SizedBox(
-          child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image(
@@ -49,7 +48,7 @@ class ScrollableLayout extends StatelessWidget {
             ],
           ),
         ],
-      )),
+      ),
     );
     return Scaffold(
       backgroundColor: Colors.white,
@@ -86,7 +85,7 @@ class ScrollableLayout extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
         child: ListView(
           children: [
-            container,
+            topCard,
             const SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +93,9 @@ class ScrollableLayout extends StatelessWidget {
                 const Text(
                   'Want to be here too?',
                   style: TextStyle(
-                      color: Color.fromARGB(255, 68, 68, 68), fontSize: 16),
+                    color: Color.fromARGB(255, 68, 68, 68),
+                    fontSize: 16,
+                  ),
                 ),
                 const SizedBox(width: 5.0),
                 Row(
@@ -106,15 +107,15 @@ class ScrollableLayout extends StatelessWidget {
                       child: const Text(
                         'Try Boost',
                         style: TextStyle(
-                            color: Color.fromARGB(
-                              255,
-                              99,
-                              214,
-                              250,
-                            ),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                            ),
+                          color: Color.fromARGB(
+                            255,
+                            99,
+                            214,
+                            250,
+                          ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const Image(
@@ -128,7 +129,10 @@ class ScrollableLayout extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20.0),
-            ...List.generate(20, (index) => generateRow())
+            ...List.generate(
+              20,
+              (index) => generateRow(),
+            )
           ],
         ),
       ),
@@ -138,16 +142,17 @@ class ScrollableLayout extends StatelessWidget {
 
   Widget generateRow() {
     return const SizedBox(
-        child: Row(
-      children: [
-        Expanded(
-          child: UserCard(),
-        ),
-        SizedBox(width: 10.0),
-        Expanded(
-          child: UserCard(),
-        ),
-      ],
-    ));
+      child: Row(
+        children: [
+          Expanded(
+            child: UserCard(),
+          ),
+          SizedBox(width: 10.0),
+          Expanded(
+            child: UserCard(),
+          ),
+        ],
+      ),
+    );
   }
 }

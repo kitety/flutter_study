@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatefulWidget {
-
-  const BottomNav({ Key? key }) : super(key: key);
+  const BottomNav({Key? key}) : super(key: key);
 
   @override
   State<BottomNav> createState() => _BottomNavState();
@@ -24,7 +23,6 @@ class _BottomNavState extends State<BottomNav> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-
           icon: Image.asset(
             'images/chat.png',
             width: 20,
@@ -48,7 +46,7 @@ class _BottomNavState extends State<BottomNav> {
           ),
           label: 'Home2',
         ),
-         const BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: Icon(Icons.search),
           label: 'Search',
         ),
@@ -60,7 +58,8 @@ class _BottomNavState extends State<BottomNav> {
       type: BottomNavigationBarType.fixed,
     );
   }
-    void _onItemTapped(int index) {
+
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
