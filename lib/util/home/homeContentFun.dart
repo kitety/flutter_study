@@ -141,7 +141,7 @@ Container buildTextInputWidget(
               selectIndex = 0;
             });
             handleSendMessage(controller.text, 80);
-            controller.text = textArr[selectIndex];
+            controller.dispose();
           },
           child: CircleAvatar(
             backgroundColor: Colors.white,
