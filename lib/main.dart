@@ -13,7 +13,17 @@ class ScrollableLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appBar = AppBar(
+    var appBar = buildAppBar();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: appBar,
+      body: const HomeScrollContent(),
+      bottomNavigationBar: const BottomNav(),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
       titleSpacing: 10,
       title: const Text(
         'Daily Picks',
@@ -41,12 +51,6 @@ class ScrollableLayout extends StatelessWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       bottomOpacity: 0,
-    );
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appBar,
-      body: const HomeScrollContent(),
-      bottomNavigationBar: const BottomNav(),
     );
   }
 }
