@@ -57,7 +57,7 @@ class _MyStackPageState extends State<MyStackPage> {
         items: [
           createItem("home", const Icon(Icons.home)),
           createItem("like", const Icon(Icons.favorite)),
-          createItem("message", const Icon(Icons.message)),
+          createItem("Chat", const Icon(Icons.message)),
           createItem("more", const Icon(Icons.more)),
           createItem("my", const Icon(Icons.person)),
         ],

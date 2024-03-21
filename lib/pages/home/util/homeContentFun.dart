@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/pages/home/components/userHiCard.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 
 const textArr = ['Hello', 'Hi', "Holo"];
 Row buildBalanceWidget(int stoneCount) {
-  final banlanceText = LT.t?.Purchase_BuyDiamondCountTitle_PageText2 ?? '';
+  final balanceText = LT.t?.Purchase_BuyDiamondCountTitle_PageText2 ?? '';
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
-        '$banlanceText: $stoneCount',
-        style: const TextStyle(
-          fontSize: 14,
-          color: Color.fromARGB(255, 68, 68, 68),
+        '$balanceText: $stoneCount',
+        style: BodySentence_14.copyWith(
+          color: Black_444,
         ),
       ),
       const Image(
@@ -49,28 +49,16 @@ Visibility buildFooterWidget(bool isHidden) {
           },
           child: Text(
             LT.t?.getVIP ?? '',
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color.fromARGB(
-                255,
-                99,
-                214,
-                250,
-              ),
+            style: BodyText_14.copyWith(
+              color: ThemeBlu_63D6FA,
             ),
           ),
         ),
         Text(
           LT.t?.Chat_SayhiSendBottomTip_DialogText2 ?? '',
-          style: const TextStyle(
-              fontSize: 14,
-              color: Color.fromARGB(
-                255,
-                189,
-                189,
-                189,
-              )),
+          style: BodySentence_14.copyWith(
+            color: Gray_BD,
+          ),
         ),
         const SizedBox(
           height: 30,
@@ -125,7 +113,7 @@ Container buildTextInputWidget(
     child: TextField(
       controller: controller,
       textAlignVertical: TextAlignVertical.center,
-      style: const TextStyle(fontSize: 14.0),
+      style: BodyText_14,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(left: 20.0, bottom: 9),
         hintText: "What's up 😁",
@@ -199,13 +187,9 @@ void handleImageTap(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Say Hi to Sam',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 68, 68, 68),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TitleText_20.copyWith(color: Black_444),
                   ),
                   const SizedBox(
                     height: 20,

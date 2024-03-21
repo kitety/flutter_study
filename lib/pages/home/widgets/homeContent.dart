@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
 import 'package:flutter_study/pages/home/util/homeContentFun.dart';
-import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:flutter_study/pages/home/widgets/homeTopCard.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
+
 
 class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
@@ -70,10 +72,7 @@ class _HomeScrollContentState extends State<HomeContent> {
       children: [
         Text(
           inviteBoostText,
-          style: const TextStyle(
-            color: Color.fromARGB(255, 68, 68, 68),
-            fontSize: 16,
-          ),
+          style: BodySentence_16.copyWith(color: Black_444),
         ),
         const SizedBox(width: 5.0),
         Row(
@@ -84,15 +83,8 @@ class _HomeScrollContentState extends State<HomeContent> {
               },
               child: Text(
                 tryBoostText,
-                style: const TextStyle(
-                  color: Color.fromARGB(
-                    255,
-                    99,
-                    214,
-                    250,
-                  ),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                style: BodyText_16.copyWith(
+                  color: ThemeBlu_63D6FA
                 ),
               ),
             ),

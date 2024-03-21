@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/common/constant.dart';
 
 class UserHiCard extends StatelessWidget {
   final idx;
@@ -46,17 +47,16 @@ class UserHiCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     '80',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color.fromARGB(255, 68, 68, 68),
+                    style: BodyText_14.copyWith(
+                      color: Black_444,
                     ),
                   ),
-                  Image(
+                  const Image(
                     image: AssetImage('images/stone.png'),
                     width: 17,
                   )

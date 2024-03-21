@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/utils/random_num.dart';
 import 'package:flutter_study/utils/unit.dart';
 
@@ -64,20 +65,14 @@ class UserCard extends StatelessWidget {
             children: [
               Text(
                 'Laura Sofía Ureña',
-                style: TextStyle(
-                    color: isWhite
-                        ? Colors.white
-                        : const Color.fromARGB(255, 68, 68, 68),
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
+                style: BodyText_14.copyWith(
+                  color: isWhite ? White_FFF : Black_444,
+                ),
               ),
               Text(
                 distance,
-                style: TextStyle(
-                  color: isWhite
-                      ? Colors.white
-                      : const Color.fromARGB(255, 189, 189, 189),
-                  fontSize: 12,
+                style: BodySentence_12.copyWith(
+                  color: isWhite ? White_FFF : Gray_BD,
                 ),
               )
             ],

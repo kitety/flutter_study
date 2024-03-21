@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/pages/home/widgets/homeContent.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 
@@ -21,10 +22,9 @@ class Home extends StatelessWidget {
       titleSpacing: 10,
       title: Text(
         searchTabTitle,
-        style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 255, 100, 107)),
+        style: TitleText_20.copyWith(
+          color: ThemeRed_FF646B,
+        ),
       ),
       leading: Container(
         width: 30,

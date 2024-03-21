@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_study/pages/message/components/user_msg_card.dart';
+import 'package:flutter_study/pages/message/components/userMsgCard/index.dart';
 
 class MessageContent extends StatelessWidget {
   const MessageContent({Key? key}) : super(key: key);
