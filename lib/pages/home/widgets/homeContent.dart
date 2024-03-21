@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/components/userCard.dart';
-import 'package:flutter_study/util/home/homeContentFun.dart';
+import 'package:flutter_study/pages/home/components/userCard.dart';
+import 'package:flutter_study/pages/home/util/homeContentFun.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
-import 'package:flutter_study/widgets/homeTopCard.dart';
+import 'package:flutter_study/pages/home/widgets/homeTopCard.dart';
 
-class HomeScrollContent extends StatefulWidget {
-  const HomeScrollContent({Key? key}) : super(key: key);
+class HomeContent extends StatefulWidget {
+  const HomeContent({Key? key}) : super(key: key);
 
   @override
   _HomeScrollContentState createState() => _HomeScrollContentState();
 }
 
-class _HomeScrollContentState extends State<HomeScrollContent> {
+class _HomeScrollContentState extends State<HomeContent> {
   int stoneCount = 1000;
 
   late TextEditingController controller;

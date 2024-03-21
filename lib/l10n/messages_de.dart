@@ -1385,6 +1385,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'Activity_GiftCodeSuccess_PageText2': (num,price) => "Congratulations! You have won $num @DIAMONDS@ worth $price.",
     'Chat_ReplyMessageVoiceShow_PageText2': (howMany) => "[Audio $howMany’’]",
     'DailyPicks_ProfileBoostInvite_PageText1': () => "Willst du auch dabei sein?",
+    'Like_RedeemedDiamondTitle_PageText1': (num,price) => "Glückwunsch! Sie haben $num @DIAMONDS@ im Wert von $price eingelöst.",
   };
 
 }

@@ -8772,10 +8772,16 @@ class ApplicationLocalizations {
     return Intl.message("[Audio $howMany’’]", name: "Chat_ReplyMessageVoiceShow_PageText2", args: [howMany]);
   }
 
-  // 编号 28396
-  // 
+  // 编号 280396
+  // Try Boost 前面的邀请文本
   String get DailyPicks_ProfileBoostInvite_PageText1 {
     return Intl.message("Want to be here too?", name: "DailyPicks_ProfileBoostInvite_PageText1");
+  }
+
+  // 编号 280397
+  // 富文本的测试
+  String Like_RedeemedDiamondTitle_PageText1(num,price) {
+    return Intl.message("Congratulations! You have redeemed $num @DIAMONDS@ worth $price.", name: "Like_RedeemedDiamondTitle_PageText1", args: [num,price]);
   }
 
 }

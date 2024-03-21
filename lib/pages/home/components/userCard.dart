@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/utils/random_num.dart';
+import 'package:flutter_study/utils/unit.dart';
 
 class UserCard extends StatelessWidget {
   final bool isWhite;
@@ -17,6 +19,7 @@ class UserCard extends StatelessWidget {
     const avatarImage = AssetImage('images/avatar.png');
     const likeImage = AssetImage('images/like_btn.png');
     const chatImage = AssetImage('images/chat.png');
+    final distance = formatDistance(genRandomNum(5, 20));
 
     return Column(
       children: [
@@ -69,7 +72,7 @@ class UserCard extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                '2.4 km',
+                distance,
                 style: TextStyle(
                   color: isWhite
                       ? Colors.white

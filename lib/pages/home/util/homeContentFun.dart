@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/components/userHiCard.dart';
+import 'package:flutter_study/pages/home/components/userHiCard.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 
 const textArr = ['Hello', 'Hi', "Holo"];

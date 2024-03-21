@@ -1472,6 +1472,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'Chat_ReplyMessageMyName_PageText2': () => "You",
     'Chat_ReplyMessageVoiceShow_PageText2': (howMany) => "[Audio $howMany’’]",
     'DailyPicks_ProfileBoostInvite_PageText1': () => "Want to be here too?",
+    'Like_RedeemedDiamondTitle_PageText1': (num,price) => "Congratulations! You have redeemed $num @DIAMONDS@ worth $price.",
   };
 
 }

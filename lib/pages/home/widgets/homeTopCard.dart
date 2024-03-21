@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/components/userCard.dart';
+import 'package:flutter_study/pages/home/components/userCard.dart';
 
 class HomeTopCard extends StatelessWidget {
   final int count;
