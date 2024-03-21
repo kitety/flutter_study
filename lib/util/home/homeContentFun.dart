@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/components/userHiCard.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
 
 const textArr = ['Hello', 'Hi', "Holo"];
 Row buildBalanceWidget(int stoneCount) {
+  final banlanceText = LT.t?.Purchase_BuyDiamondCountTitle_PageText2 ?? '';
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
-        'Balance: $stoneCount',
+        '$banlanceText: $stoneCount',
         style: const TextStyle(
           fontSize: 14,
           color: Color.fromARGB(255, 68, 68, 68),
@@ -45,9 +47,9 @@ Visibility buildFooterWidget(bool isHidden) {
           onTap: () {
             print('Get Vip');
           },
-          child: const Text(
-            'Get VIP',
-            style: TextStyle(
+          child: Text(
+            LT.t?.getVIP ?? '',
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Color.fromARGB(
@@ -59,9 +61,9 @@ Visibility buildFooterWidget(bool isHidden) {
             ),
           ),
         ),
-        const Text(
-          'to Send Unlimited Messages',
-          style: TextStyle(
+        Text(
+          LT.t?.Chat_SayhiSendBottomTip_DialogText2 ?? '',
+          style: const TextStyle(
               fontSize: 14,
               color: Color.fromARGB(
                 255,
@@ -112,7 +114,7 @@ Container buildTextInputWidget(
     StateSetter setState,
     int stoneCount,
     int selectIndex,
-     void Function(String, int)  handleSendMessage) {
+    void Function(String, int) handleSendMessage) {
   return Container(
     height: 44,
     decoration: BoxDecoration(

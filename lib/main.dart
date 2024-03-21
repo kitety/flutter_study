@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_study/l10n/application_localizations_delegate.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:flutter_study/widgets/bottomNav.dart';
 import 'package:flutter_study/widgets/homeScrollContent.dart';
 
 void main() {
   runApp(const MaterialApp(
     home: ScrollableLayout(),
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      ApplicationLocalizationsDelegate()
+    ],
+    supportedLocales: [
+      Locale('en'),
+      Locale('de'),
+    ],
   ));
 }
 
@@ -13,7 +26,8 @@ class ScrollableLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appBar = buildAppBar();
+    LT.context = context;
+    var appBar = buildAppBar(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar,
@@ -22,12 +36,13 @@ class ScrollableLayout extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
+    final searchTabTitle = LT.t?.searchTabTitle ?? '';
     return AppBar(
       titleSpacing: 10,
-      title: const Text(
-        'Daily Picks',
-        style: TextStyle(
+      title: Text(
+        searchTabTitle,
+        style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 255, 100, 107)),

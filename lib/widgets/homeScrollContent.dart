@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/components/userCard.dart';
 import 'package:flutter_study/util/home/homeContentFun.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:flutter_study/widgets/homeTopCard.dart';
 
 class HomeScrollContent extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HomeScrollContentState extends State<HomeScrollContent> {
                   },
                 ),
                 const SizedBox(height: 10.0),
-                getTryBoost(),
+                getTryBoost(context),
                 const SizedBox(height: 10.0),
               ],
             ),
@@ -61,13 +62,15 @@ class _HomeScrollContentState extends State<HomeScrollContent> {
     );
   }
 
-  Row getTryBoost() {
+  Row getTryBoost(BuildContext context) {
+    final tryBoostText = LT.t?.DailyPicks_ProfileBoostTry_PageText1 ?? '';
+    final inviteBoostText = LT.t?.DailyPicks_ProfileBoostInvite_PageText1 ?? '';
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          'Want to be here too?',
-          style: TextStyle(
+        Text(
+          inviteBoostText,
+          style: const TextStyle(
             color: Color.fromARGB(255, 68, 68, 68),
             fontSize: 16,
           ),
@@ -79,9 +82,9 @@ class _HomeScrollContentState extends State<HomeScrollContent> {
               onTap: () {
                 print('Try Boost');
               },
-              child: const Text(
-                'Try Boost',
-                style: TextStyle(
+              child: Text(
+                tryBoostText,
+                style: const TextStyle(
                   color: Color.fromARGB(
                     255,
                     99,
