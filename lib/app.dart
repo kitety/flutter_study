@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_study/l10n/application_localizations_delegate.dart';
 import 'package:flutter_study/model/user_model.dart';
+import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
-import 'package:flutter_study/pages/more/more.dart';
 import 'package:flutter_study/pages/my/my.dart';
 import 'package:flutter_study/utils/local_helper.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
@@ -87,7 +87,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class _MyStackPageState extends State<MyStackPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [Home(), Like(), Message(), More(), My()],
+        children: const [Home(), Like(), Message(), ForYou(), My()],
       ),
     );
   }
