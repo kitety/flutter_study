@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/model/user_model.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
 
 class HomeTopCard extends StatelessWidget {
   final int count;
-  final VoidCallback handleImgClick;
+  final Function(User) handleHiBtnClick;
+  final List<User> users;
   const HomeTopCard(
-      {Key? key, required this.count, required this.handleImgClick})
+      {Key? key,
+      required this.count,
+      required this.handleHiBtnClick,
+      required this.users})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final isHaveUser = users.isNotEmpty;
+    final content = Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         image: const DecorationImage(
@@ -33,17 +39,19 @@ class HomeTopCard extends StatelessWidget {
             children: [
               Expanded(
                 child: UserCard(
+                  user: users[0],
                   isWhite: true,
                   count: count,
-                  handleImgClick: handleImgClick,
+                  handleHiBtnClick: handleHiBtnClick,
                 ),
               ),
               const SizedBox(width: 7.0),
               Expanded(
                 child: UserCard(
+                  user: users[1],
                   isWhite: true,
                   count: count,
-                  handleImgClick: handleImgClick,
+                  handleHiBtnClick: handleHiBtnClick,
                 ),
               ),
             ],
@@ -51,5 +59,7 @@ class HomeTopCard extends StatelessWidget {
         ],
       ),
     );
+
+    return isHaveUser ? content : Container();
   }
 }

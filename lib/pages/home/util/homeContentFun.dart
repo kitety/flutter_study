@@ -125,13 +125,12 @@ Container buildTextInputWidget(
         suffixIcon: GestureDetector(
           onTap: () {
             print('send Message');
-            Navigator.of(context).pop();
-            setState(() {
-              stoneCount -= 80;
-              selectIndex = 0;
-            });
+            // setState(() {
+            //   stoneCount -= 80;
+            //   selectIndex = 0;
+            // });
             handleSendMessage(controller.text, 80);
-            controller.dispose();
+            Navigator.of(context).pop();
           },
           child: CircleAvatar(
             backgroundColor: Colors.white,

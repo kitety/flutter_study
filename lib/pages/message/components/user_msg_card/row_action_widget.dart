@@ -4,19 +4,19 @@ import '../../../../common/constant.dart';
 
 class RowActionWidget extends StatelessWidget {
   final String deleteText;
+  final VoidCallback handleDeleteChat;
 
   const RowActionWidget({
     super.key,
     required this.deleteText,
+    required this.handleDeleteChat,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onDoubleTap: () {
-          print('delete');
-        },
+        onTap: handleDeleteChat,
         child: Container(
           color: const Color(0xFFC24E45),
           width: 110,

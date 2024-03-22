@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
+import 'package:flutter_study/model/user_model.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
 import 'package:flutter_study/pages/home/util/homeContentFun.dart';
 import 'package:flutter_study/pages/home/widgets/homeTopCard.dart';
+import 'package:flutter_study/store/models/app_global.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
-
+import 'package:provider/provider.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
@@ -14,53 +16,72 @@ class HomeContent extends StatefulWidget {
 }
 
 class _HomeScrollContentState extends State<HomeContent> {
-  int stoneCount = 1000;
-
+  User? sendMessageUser;
   late TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-          sliver: SliverToBoxAdapter(
-            child: Column(
-              children: [
-                HomeTopCard(
-                  count: stoneCount,
-                  handleImgClick: () {
-                    handleImageTap(context, stoneCount, handleSendMessage);
-                  },
+    return Consumer<AppGlobalModelView>(
+      builder: (context, globalViewModel, child) {
+        final list = globalViewModel.users;
+        final stoneCount = globalViewModel.stoneCount;
+        final isShowTopCard = list.length >= 2;
+
+        return CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    isShowTopCard
+                        ? getTopCard(list, stoneCount, context)
+                        : Container(),
+                    const SizedBox(height: 10.0),
+                    getTryBoost(context),
+                    const SizedBox(height: 10.0),
+                  ],
                 ),
-                const SizedBox(height: 10.0),
-                getTryBoost(context),
-                const SizedBox(height: 10.0),
-              ],
+              ),
             ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          sliver: SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 9.0,
-              childAspectRatio: 0.82,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                return UserCard(
-                  count: stoneCount,
-                  handleImgClick: () {
-                    handleImageTap(context, stoneCount, handleSendMessage);
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 9.0,
+                  childAspectRatio: 0.82,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext ctx, int index) {
+                    final user = globalViewModel.users[index];
+                    return UserCard(
+                      user: user,
+                      count: stoneCount,
+                      handleHiBtnClick: (user) {
+                        sendMessageUser = user;
+                        handleImageTap(context, stoneCount, handleSendMessage);
+                      },
+                    );
                   },
-                );
-              },
-              childCount: 7,
-            ),
-          ),
-        )
-      ],
+                  childCount: globalViewModel.users.length,
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  HomeTopCard getTopCard(
+      List<User> list, int stoneCount, BuildContext context) {
+    return HomeTopCard(
+      users: list.sublist(0, 2),
+      count: stoneCount,
+      handleHiBtnClick: (user) {
+        sendMessageUser = user;
+        handleImageTap(context, stoneCount, handleSendMessage);
+      },
     );
   }
 
@@ -83,9 +104,7 @@ class _HomeScrollContentState extends State<HomeContent> {
               },
               child: Text(
                 tryBoostText,
-                style: BodyText_16.copyWith(
-                  color: ThemeBlu_63D6FA
-                ),
+                style: BodyText_16.copyWith(color: ThemeBlu_63D6FA),
               ),
             ),
             const Image(
@@ -102,9 +121,9 @@ class _HomeScrollContentState extends State<HomeContent> {
   }
 
   void handleSendMessage(String msg, int count) {
-    print(msg);
-    setState(() {
-      stoneCount -= count;
-    });
+    Provider.of<AppGlobalModelView>(context, listen: false)
+        .reduceStoneCount(count);
+    Provider.of<AppGlobalModelView>(context, listen: false)
+        .addUserToChatById(sendMessageUser!.id);
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
+import 'package:flutter_study/model/user_model.dart';
 
 class UserMsgContainer extends StatelessWidget {
-  const UserMsgContainer({
-    super.key,
-  });
+  final User user;
+  const UserMsgContainer({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
