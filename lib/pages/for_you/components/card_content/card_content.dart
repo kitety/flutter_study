@@ -5,7 +5,9 @@ import 'package:flutter_study/pages/for_you/components/card_content/constant.dar
 
 class CardContent extends StatefulWidget {
   final int index;
-  const CardContent({Key? key, required this.index}) : super(key: key);
+  final VoidCallback handleNext;
+  const CardContent({Key? key, required this.index, required this.handleNext})
+      : super(key: key);
 
   @override
   _CardContentState createState() => _CardContentState();
@@ -19,12 +21,21 @@ class _CardContentState extends State<CardContent>
     duration: cardScaleDuration,
     vsync: this,
   );
+  late final AnimationController _slideController = AnimationController(
+    duration: translationDuration,
+    vsync: this,
+  );
+  late final Animation<Offset> _slideAnimation = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(0.0, -1.0),
+  ).animate(_slideController);
 
   @override
   Widget build(BuildContext context) {
     const likeImage = AssetImage('images/like_btn.png');
     const chatImage = AssetImage('images/chat.png');
-    return Container(
+    return SlideTransition(
+      position: _slideAnimation,
       child: ScaleTransition(
         scale: Tween<double>(
           begin: 1.0, // 原始宽度
@@ -80,16 +91,37 @@ class _CardContentState extends State<CardContent>
     );
   }
 
+  @override
+  void dispose() {
+    print('销毁');
+    // TODO: implement dispose
+    super.dispose();
+    // 销毁所有的controller
+    for (var controller in btnControllers) {
+      controller.dispose();
+    }
+    _controller.dispose();
+    _slideController.dispose();
+  }
+
   void handleBottomBtnTap() async {
+    // 按钮动画
     for (var controller in btnControllers) {
       controller.reverse();
     }
-    await Future.delayed(const Duration(milliseconds: bottomBrnShowTime));
+    await Future.delayed(bottomBtnShowDuration);
+    // 心形动画
     for (var controller in heartControllers) {
       controller.call();
     }
-    await Future.delayed(const Duration(milliseconds: heartDurationTime));
+    await Future.delayed(heartDuration);
+    // 卡片缩放动画
     _controller.forward();
-    await Future.delayed(const Duration(milliseconds: cardScaleTime));
+    await Future.delayed(cardScaleDuration);
+    await Future.delayed(beforeTranslationDuration);
+    // // 卡片平移动画
+    _slideController.forward();
+    await Future.delayed(translationDuration);
+    widget.handleNext();
   }
 }

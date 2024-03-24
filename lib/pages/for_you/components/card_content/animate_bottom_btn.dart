@@ -15,7 +15,7 @@ class AnimateBottomBtn extends StatefulWidget {
 class _AnimateBottomBtnState extends State<AnimateBottomBtn>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: bottomBtnShowTime,
+    duration: bottomBtnShowDuration,
     vsync: this,
   );
   late final Animation<double> _animation = CurvedAnimation(
