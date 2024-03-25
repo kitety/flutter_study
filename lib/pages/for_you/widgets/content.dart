@@ -14,16 +14,17 @@ class _ForYouContentState extends State<ForYouContent>
 
   @override
   Widget build(BuildContext context) {
+    final cardList = List.generate(
+      20,
+      (index) => CardContent(index: index, handleNext: handleCheckNextCard),
+    ).toList();
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         PageView(
           controller: _pageViewController,
           physics: const NeverScrollableScrollPhysics(),
-          children: List.generate(
-              20,
-              (index) => CardContent(
-                  index: index, handleNext: handleCheckNextCard)).toList(),
+          children: cardList,
         ),
       ],
     );

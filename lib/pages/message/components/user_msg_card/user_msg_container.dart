@@ -8,6 +8,7 @@ class UserMsgContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final msg = user.messages.isNotEmpty ? user.messages.last : '';
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
       child: Row(
@@ -39,7 +40,7 @@ class UserMsgContainer extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'See you there',
+                msg,
                 style: BodySentence_16,
               )
             ],

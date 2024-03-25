@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_study/model/user_model.dart';
 import 'package:flutter_study/pages/message/components/user_msg_card/row_action_widget.dart';
 import 'package:flutter_study/pages/message/components/user_msg_card/user_msg_container.dart';
-import 'package:flutter_study/store/models/app_global.dart';
+import 'package:flutter_study/store/models/message_global.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:provider/provider.dart';
 

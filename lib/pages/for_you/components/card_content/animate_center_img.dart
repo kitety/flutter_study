@@ -12,7 +12,13 @@ class AnimateCenterImg extends StatefulWidget {
 
 class _AnimateCenterImgState extends State<AnimateCenterImg> {
   bool show = false;
-
+  double opacity = 0.0;
+  double size = 0.0;
+  double positionX = 0.0;
+  double positionY = 0.0;
+  double top = 0.0;
+  double left = 0.0;
+  Duration duration = heartScaleBigDuration;
   @override
   Widget build(BuildContext context) {
     const likeImage = AssetImage('images/like_btn.png');
@@ -29,21 +35,23 @@ class _AnimateCenterImgState extends State<AnimateCenterImg> {
     final Size screenSize = MediaQuery.of(context).size;
     final double screenWidth = screenSize.width;
     final double screenHeight = screenSize.height;
-    final opacityLevel = show ? 1.0 : 0.0;
+
+    var topVal = show ? top : screenHeight - 300;
+    var leftVal = show ? left : screenWidth - 50;
 
     return SizedBox(
       width: screenWidth,
       child: AnimatedOpacity(
-        opacity: opacityLevel,
-        duration: heartDuration,
+        opacity: opacity,
+        duration: duration,
         child: Stack(
           children: [
             AnimatedPositioned(
-              width: show ? imgWidth.toDouble() : 0,
-              height: show ? imgWidth.toDouble() : 0,
-              top: show ? 90.0 : screenHeight - 300,
-              left: show ? (screenWidth - imgWidth) / 2 : screenWidth - 50,
-              duration: heartDuration,
+              width: size,
+              height: size,
+              top: topVal,
+              left: leftVal,
+              duration: duration,
               curve: Curves.easeInOutBack,
               child: imgContent,
             ),
@@ -53,10 +61,43 @@ class _AnimateCenterImgState extends State<AnimateCenterImg> {
     );
   }
 
-  void handleShowHeart() {
+  void handleShowHeart() async {
+    print('zhixingzhixing');
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+    var imgWidth = 240.0;
+    // 首先执行放大
     setState(() {
+      opacity = 1.0;
+      size = imgWidth;
+      top = 90.0;
+      left = (screenWidth - imgWidth) / 2;
       show = true;
+      duration = heartScaleBigDuration;
     });
+    // 等待放大的之间结束
+    await Future.delayed(heartScaleBigDuration);
+    // 等待 放大到缩小的间隔
+    await Future.delayed(heartScaleBigSmallWaitDuration);
+    imgWidth = 200.0;
+    setState(() {
+      opacity = 0.1;
+      size = 200.0;
+      top = 90.0;
+      left = (screenWidth - imgWidth) / 2;
+      show = true;
+      duration = heartScaleBigSmallDuration;
+    });
+    // await Future.delayed(heartScaleBigSmallWaitDuration, () {});
+    // await Future.delayed(heartScaleSmallDuration, () {});
+    // await Future.delayed(const Duration(seconds: 2), () {
+    //   setState(() {
+    //     opacity = 0.0;
+    //     size = 120.0;
+    //     show = true;
+    //   });
+    // });
   }
 
   @override

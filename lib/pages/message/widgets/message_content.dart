@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_study/pages/message/components/user_msg_card/index.dart';
-import 'package:flutter_study/store/models/app_global.dart';
+import 'package:flutter_study/store/models/message_global.dart';
 import 'package:provider/provider.dart';
 
 class MessageContent extends StatelessWidget {

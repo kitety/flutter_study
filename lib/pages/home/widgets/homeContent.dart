@@ -4,7 +4,7 @@ import 'package:flutter_study/model/user_model.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
 import 'package:flutter_study/pages/home/util/homeContentFun.dart';
 import 'package:flutter_study/pages/home/widgets/homeTopCard.dart';
-import 'package:flutter_study/store/models/app_global.dart';
+import 'package:flutter_study/store/models/message_global.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -124,6 +124,6 @@ class _HomeScrollContentState extends State<HomeContent> {
     Provider.of<AppGlobalModelView>(context, listen: false)
         .reduceStoneCount(count);
     Provider.of<AppGlobalModelView>(context, listen: false)
-        .addUserToChatById(sendMessageUser!.id);
+        .addUserToChatById(sendMessageUser!.id,msg);
   }
 }

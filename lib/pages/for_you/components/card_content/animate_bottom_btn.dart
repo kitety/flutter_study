@@ -24,7 +24,6 @@ class _AnimateBottomBtnState extends State<AnimateBottomBtn>
   );
   @override
   Widget build(BuildContext context) {
-    print(_animation);
     return ScaleTransition(
       scale: _animation,
       child: widget.child,

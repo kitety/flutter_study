@@ -13,7 +13,7 @@ import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:flutter_study/utils/random_num.dart';
 import 'package:provider/provider.dart';
 
-import 'store/models/app_global.dart';
+import 'store/models/message_global.dart';
 
 BottomNavigationBarItem createItem(String title, Widget icon) {
   return BottomNavigationBarItem(
@@ -52,8 +52,6 @@ class MessageBottomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppGlobalModelView>(
       builder: (context, counterViewModel, child) {
-        print('counterViewModel.users.length');
-        print(counterViewModel.users.length);
         final counterText = counterViewModel.chatCount.toString();
         final isShowBadge = counterViewModel.chatList.isNotEmpty;
         final badgeIcon = badges.Badge(
@@ -102,7 +100,7 @@ class _MyStackPageState extends State<MyStackPage> {
           createItem("home", const Icon(Icons.home)),
           createItem("like", const Icon(Icons.favorite)),
           createItem("Chat", const MessageBottomWidget()),
-          createItem("more", const Icon(Icons.more)),
+          createItem("For You", const Icon(Icons.local_activity)),
           createItem("my", const Icon(Icons.person)),
         ],
         onTap: (index) {
@@ -128,9 +126,8 @@ class _MyStackPageState extends State<MyStackPage> {
 
   void initStoreData() {
     List.generate(30, (index) {
-      final user = User(
-          generateRandomName(), genRandomNum(1.2, 3.0), generateRandomUserId());
-      print(user);
+      final user = User(generateRandomName(), genRandomNum(1.2, 3.0),
+          generateRandomUserId(), []);
       Provider.of<AppGlobalModelView>(context, listen: false).addUser(user);
     });
   }

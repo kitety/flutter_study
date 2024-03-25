@@ -25,24 +25,25 @@ class AppGlobalModelView extends ChangeNotifier {
   }
 
   // 添加Chat by id
-  void addUserToChatById(String id) {
+  void addUserToChatById(String id, String msg) {
     // check is id in _chatList
+    final user = _users.firstWhere((element) => element.id == id);
+    user.addMessage(msg);
     if (_chatList.indexWhere((element) => element.id == id) == -1) {
-      final user = _users.firstWhere((element) => element.id == id);
       _chatList.add(user);
-      notifyListeners();
     }
-  }
-
-  // 减少钻石数量
-  void reduceStoneCount(int count) {
-    _stoneCount -= count;
     notifyListeners();
   }
 
   // 删除Chat by id
   void deleteChatById(String id) {
     _chatList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  // 减少钻石数量
+  void reduceStoneCount(int count) {
+    _stoneCount -= count;
     notifyListeners();
   }
 
