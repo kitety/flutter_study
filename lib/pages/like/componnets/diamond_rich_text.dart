@@ -19,6 +19,8 @@ class DiamondRichText extends StatelessWidget {
     final redeemedDiamondText =
         LT.t?.Like_RedeemedDiamondTitle_PageText1(count, price) ?? '';
     const splitSymbol = '@DIAMONDS@';
+    // fun(String,[{a:c},{b:d}])
+    // 封装 统一
     List<String> redeemedDiamondParts = redeemedDiamondText.split(splitSymbol);
     return RichText(
       text: TextSpan(

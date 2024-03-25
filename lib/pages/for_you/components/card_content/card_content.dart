@@ -114,8 +114,21 @@ class _CardContentState extends State<CardContent>
     _scaleController.dispose();
     _slideController.dispose();
   }
+  // Timeline
+  // t(1).(2).(3).(delay)
+
+// 关掉页面 需要判断页面还存在
+
+// -1
+// ---3
+// -----5
+// ---------6
+// ---------------7
+// 0-10  8   7  6  8  9
+// value;
 
   void handleBottomBtnTap() async {
+    // TweenSequence(items);
     // 按钮消失动画
     for (var controller in btnControllers) {
       controller.reverse();
@@ -127,7 +140,6 @@ class _CardContentState extends State<CardContent>
     }
     await Future.delayed(heartScaleBigSmallDuration);
     // 爱心变小，透明
-
     // 卡片缩放动画
     _scaleController.forward();
     await Future.delayed(cardScaleDuration);

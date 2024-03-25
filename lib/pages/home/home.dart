@@ -8,10 +8,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appBar = buildAppBar(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBar,
+      appBar: buildAppBar(context),
       body: const HomeContent(),
     );
   }

@@ -24,6 +24,7 @@ class _MessageState extends State<Message> {
 
   AppBar buildAppBar(BuildContext context) {
     final searchTabTitle = LT.t?.chatTitle ?? '';
+    // ApplicationLocalizations.of(context)?.chatTitle
     return AppBar(
       titleSpacing: 10,
       centerTitle: false,

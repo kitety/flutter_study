@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/model/user_model.dart';
+import 'package:flutter_study/pages/home/widgets/homeContent.dart';
 import 'package:flutter_study/utils/random_num.dart';
 import 'package:flutter_study/utils/unit.dart';
 
@@ -28,7 +29,7 @@ class UserCard extends StatelessWidget {
     return Column(
       children: [
         AspectRatio(
-          aspectRatio: 1,
+          aspectRatio: HomeContent.cardWHRatio,
           child: Stack(
             children: [
               const Positioned.fill(

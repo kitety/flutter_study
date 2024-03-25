@@ -9,6 +9,14 @@ import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:provider/provider.dart';
 
 class HomeContent extends StatefulWidget {
+  static double containerPadding = 10.0;
+
+  static double crossAxisSpacing = 9.0;
+  static int crossAxisCount = 2;
+  static double cardWHRatio = 0.7; // 宽比高
+  static double textHeight = 60.0;
+  static var allGap =
+      2 * containerPadding + crossAxisSpacing * (crossAxisCount - 1);
   const HomeContent({Key? key}) : super(key: key);
 
   @override
@@ -16,8 +24,6 @@ class HomeContent extends StatefulWidget {
 }
 
 class _HomeScrollContentState extends State<HomeContent> {
-  User? sendMessageUser;
-  late TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Consumer<AppGlobalModelView>(
@@ -26,10 +32,21 @@ class _HomeScrollContentState extends State<HomeContent> {
         final stoneCount = globalViewModel.stoneCount;
         final isShowTopCard = list.length >= 2;
 
+        final Size screenSize = MediaQuery.of(context).size;
+        final double screenWidth = screenSize.width;
+        double textHeight = 60.0;
+        var cardWidth = (screenWidth - HomeContent.allGap) / 2;
+        double cardItemHeight =
+            textHeight + cardWidth / HomeContent.cardWHRatio;
+        print('111');
+        print(cardWidth);
+        print(cardItemHeight);
+
         return CustomScrollView(
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              padding: EdgeInsets.fromLTRB(HomeContent.containerPadding, 15,
+                  HomeContent.containerPadding, 0),
               sliver: SliverToBoxAdapter(
                 child: Column(
                   children: [
@@ -44,13 +61,15 @@ class _HomeScrollContentState extends State<HomeContent> {
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: EdgeInsets.fromLTRB(HomeContent.containerPadding, 10,
+                  HomeContent.containerPadding, 0),
               sliver: SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 9.0,
-                  childAspectRatio: 0.82,
-                ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: HomeContent.crossAxisCount,
+                    crossAxisSpacing: HomeContent.crossAxisSpacing,
+                    // childAspectRatio: 0.82,// 都可以自己算
+                    mainAxisExtent: cardItemHeight // 可以自己算
+                    ),
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext ctx, int index) {
                     final user = globalViewModel.users[index];
@@ -58,8 +77,14 @@ class _HomeScrollContentState extends State<HomeContent> {
                       user: user,
                       count: stoneCount,
                       handleHiBtnClick: (user) {
-                        sendMessageUser = user;
-                        handleImageTap(context, stoneCount, handleSendMessage);
+                        // 应该用返回值
+                        handleImageTap(
+                          context,
+                          stoneCount,
+                          (String msg, int count) {
+                            handleSendMessage(msg, count, user);
+                          },
+                        );
                       },
                     );
                   },
@@ -79,8 +104,9 @@ class _HomeScrollContentState extends State<HomeContent> {
       users: list.sublist(0, 2),
       count: stoneCount,
       handleHiBtnClick: (user) {
-        sendMessageUser = user;
-        handleImageTap(context, stoneCount, handleSendMessage);
+        handleImageTap(context, stoneCount, (String msg, int count) {
+          handleSendMessage(msg, count, user);
+        });
       },
     );
   }
@@ -120,10 +146,10 @@ class _HomeScrollContentState extends State<HomeContent> {
     );
   }
 
-  void handleSendMessage(String msg, int count) {
+  void handleSendMessage(String msg, int count, User user) {
     Provider.of<AppGlobalModelView>(context, listen: false)
         .reduceStoneCount(count);
     Provider.of<AppGlobalModelView>(context, listen: false)
-        .addUserToChatById(sendMessageUser!.id,msg);
+        .addUserToChatById(user.id, msg);
   }
 }
