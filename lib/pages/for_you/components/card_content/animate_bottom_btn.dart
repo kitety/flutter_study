@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/pages/for_you/components/card_content/constant.dart';
 
 class AnimateBottomBtn extends StatefulWidget {
   final Widget child;
-  const AnimateBottomBtn({Key? key, required this.child}) : super(key: key);
+  final List<AnimationController> controllers;
+  const AnimateBottomBtn(
+      {Key? key, required this.child, required this.controllers})
+      : super(key: key);
 
   @override
   _AnimateBottomBtnState createState() => _AnimateBottomBtnState();
@@ -11,7 +15,7 @@ class AnimateBottomBtn extends StatefulWidget {
 class _AnimateBottomBtnState extends State<AnimateBottomBtn>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
+    duration: bottomBtnShowDuration,
     vsync: this,
   );
   late final Animation<double> _animation = CurvedAnimation(
@@ -27,16 +31,11 @@ class _AnimateBottomBtnState extends State<AnimateBottomBtn>
     );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller.forward();
+    widget.controllers.add(_controller);
   }
 }

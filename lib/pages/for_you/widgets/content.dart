@@ -19,8 +19,11 @@ class _ForYouContentState extends State<ForYouContent>
       children: <Widget>[
         PageView(
           controller: _pageViewController,
-          children:
-              List.generate(20, (index) => CardContent(index: index)).toList(),
+          physics: const NeverScrollableScrollPhysics(),
+          children: List.generate(
+              20,
+              (index) => CardContent(
+                  index: index, handleNext: handleCheckNextCard)).toList(),
         ),
       ],
     );
