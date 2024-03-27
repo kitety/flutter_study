@@ -2,15 +2,20 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_study/l10n/application_localizations_delegate.dart';
-import 'package:flutter_study/model/user_model.dart';
+import 'package:flutter_study/model/user.dart';
+import 'package:flutter_study/pages/cart/cart.dart';
+import 'package:flutter_study/pages/food_detail/food_detail.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
 import 'package:flutter_study/pages/my/my.dart';
+import 'package:flutter_study/route/route.dart';
+import 'package:flutter_study/store/models/cart/cart_bindings.dart';
 import 'package:flutter_study/utils/local_helper.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:flutter_study/utils/random_num.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'store/models/message_global.dart';
@@ -27,18 +32,23 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      localizationsDelegates: [
+    return GetMaterialApp(
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         ApplicationLocalizationsDelegate()
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en'),
         Locale('de'),
       ],
-      home: MyStackPage(),
+      initialBinding: CartBindings(),
+      initialRoute: RouteBaseConfig.detail,
+      getPages: [
+        GetPage(name: RouteBaseConfig.home, page: () => const MyStackPage()),
+        GetPage(name: RouteBaseConfig.detail, page: () => const FoodDetail()),
+      ],
     );
   }
 }
@@ -85,7 +95,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -97,11 +107,12 @@ class _MyStackPageState extends State<MyStackPage> {
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         items: [
-          createItem("home", const Icon(Icons.home)),
-          createItem("like", const Icon(Icons.favorite)),
+          createItem("Home", const Icon(Icons.home)),
+          createItem("Like", const Icon(Icons.favorite)),
           createItem("Chat", const MessageBottomWidget()),
           createItem("For You", const Icon(Icons.local_activity)),
-          createItem("my", const Icon(Icons.person)),
+          createItem("My", const Icon(Icons.person)),
+          createItem("Cart", const Icon(Icons.cable)),
         ],
         onTap: (index) {
           setState(() {
@@ -113,7 +124,7 @@ class _MyStackPageState extends State<MyStackPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [Home(), Like(), Message(), ForYou(), My()],
+        children: const [Home(), Like(), Message(), ForYou(), My(), Cart()],
       ),
     );
   }

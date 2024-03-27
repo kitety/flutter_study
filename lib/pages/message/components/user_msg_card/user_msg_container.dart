@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
-import 'package:flutter_study/model/user_model.dart';
+import 'package:flutter_study/model/user.dart';
 
 class UserMsgContainer extends StatelessWidget {
   final User user;

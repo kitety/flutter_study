@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
-import 'package:flutter_study/model/user_model.dart';
+import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
 import 'package:flutter_study/pages/home/util/homeContentFun.dart';
 import 'package:flutter_study/pages/home/widgets/homeTopCard.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../model/user_model.dart';
+import '../../model/user.dart';
 
 class AppGlobalModelView extends ChangeNotifier {
   int _stoneCount = 1000;
