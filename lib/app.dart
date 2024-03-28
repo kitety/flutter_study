@@ -5,13 +5,13 @@ import 'package:flutter_study/l10n/application_localizations_delegate.dart';
 import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/cart/cart.dart';
 import 'package:flutter_study/pages/food_detail/food_detail.dart';
+import 'package:flutter_study/pages/food_list/food_list.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
-import 'package:flutter_study/pages/my/my.dart';
 import 'package:flutter_study/route/route.dart';
-import 'package:flutter_study/store/models/cart/cart_bindings.dart';
+import 'package:flutter_study/store/models/cart/food_list_bindings.dart';
 import 'package:flutter_study/utils/local_helper.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:flutter_study/utils/random_num.dart';
@@ -43,8 +43,8 @@ class App extends StatelessWidget {
         Locale('en'),
         Locale('de'),
       ],
-      initialBinding: CartBindings(),
-      initialRoute: RouteBaseConfig.detail,
+      initialBinding: FoodListBindings(),
+      initialRoute: RouteBaseConfig.home,
       getPages: [
         GetPage(name: RouteBaseConfig.home, page: () => const MyStackPage()),
         GetPage(name: RouteBaseConfig.detail, page: () => const FoodDetail()),
@@ -124,7 +124,14 @@ class _MyStackPageState extends State<MyStackPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [Home(), Like(), Message(), ForYou(), My(), Cart()],
+        children: const [
+          Home(),
+          Like(),
+          Message(),
+          ForYou(),
+          FoodListWidget(),
+          Cart()
+        ],
       ),
     );
   }

@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/common/food_constant.dart';
 import 'package:flutter_study/route/route.dart';
+import 'package:flutter_study/store/models/cart/food_list_controller.dart';
 import 'package:get/get.dart';
 
-class foodListWidget extends StatelessWidget {
-  const foodListWidget({
+class FoodListContent extends GetView<FoodListController> {
+  const FoodListContent({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final foodList = controller.foodsList;
     return ListView.builder(
       padding: const EdgeInsets.all(4),
-      itemCount: foodList.length,
+      itemCount: controller.foodsList.length,
       itemBuilder: (BuildContext context, int index) {
-        String name = foodList[index].name;
+        final food = foodList[index];
+        String name = food.value.name;
         return ListTile(
           title: Text(name),
           trailing: IconButton(
             icon: const Icon(Icons.arrow_forward),
             onPressed: () {
-              Get.toNamed(RouteBaseConfig.detail);
+              Get.toNamed(RouteBaseConfig.detail, arguments: index);
             },
           ),
         );
@@ -29,21 +31,16 @@ class foodListWidget extends StatelessWidget {
   }
 }
 
-class My extends StatefulWidget {
-  const My({Key? key}) : super(key: key);
+class FoodListWidget extends StatelessWidget {
+  const FoodListWidget({Key? key}) : super(key: key);
 
-  @override
-  _MyState createState() => _MyState();
-}
-
-class _MyState extends State<My> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Food List'),
       ),
-      body: const foodListWidget(),
+      body: const FoodListContent(),
     );
   }
 }
