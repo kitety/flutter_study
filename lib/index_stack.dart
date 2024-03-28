@@ -1,17 +1,12 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_study/l10n/application_localizations_delegate.dart';
 import 'package:flutter_study/pages/cart/cart.dart';
-import 'package:flutter_study/pages/food_detail/food_detail.dart';
 import 'package:flutter_study/pages/food_list/food_list.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
-import 'package:flutter_study/route/route.dart';
 import 'package:flutter_study/store/cart/food_list_controller.dart';
-import 'package:flutter_study/store/store_binding.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 
@@ -24,31 +19,6 @@ BottomNavigationBarItem createItem(String title, Widget icon) {
   );
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        ApplicationLocalizationsDelegate()
-      ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('de'),
-      ],
-      initialBinding: StoreBindings(),
-      initialRoute: RouteBaseConfig.home,
-      getPages: [
-        GetPage(name: RouteBaseConfig.home, page: () => const MyStackPage()),
-        GetPage(name: RouteBaseConfig.detail, page: () => const FoodDetail()),
-      ],
-    );
-  }
-}
 
 class CartBottomWidget extends StatelessWidget {
   final controller = Get.put(FoodListController());
