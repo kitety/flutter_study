@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(context),
-      body: const HomeContent(),
+      body:  HomeContent(),
     );
   }
 

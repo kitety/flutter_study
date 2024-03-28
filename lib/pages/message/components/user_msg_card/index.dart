@@ -3,12 +3,12 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/message/components/user_msg_card/row_action_widget.dart';
 import 'package:flutter_study/pages/message/components/user_msg_card/user_msg_container.dart';
-import 'package:flutter_study/store/models/message_global.dart';
+import 'package:flutter_study/store/user/user_list_controller.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class UserMsgCard extends StatefulWidget {
-  final User user;
+  final Rx<User> user;
   const UserMsgCard({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _UserMsgCardState extends State<UserMsgCard> {
   Widget build(BuildContext context) {
     final deleteText = LT.t?.flashChatEndChat ?? '';
     return Slidable(
-      key: ValueKey(widget.user.id),
+      key: ValueKey(widget.user.value.id),
       // The end action pane is the one at the right or the bottom side.
       endActionPane: ActionPane(
         extentRatio: 0.35,
@@ -28,15 +28,17 @@ class _UserMsgCardState extends State<UserMsgCard> {
         motion: const ScrollMotion(),
         children: [
           RowActionWidget(
-              deleteText: deleteText, handleDeleteChat: handleDeleteChat)
+            deleteText: deleteText,
+            handleDeleteChat: handleDeleteChat,
+          )
         ],
       ),
-      child: UserMsgContainer(user: widget.user),
+      child: UserMsgContainer(user: widget.user.value),
     );
   }
 
   void handleDeleteChat() {
-    Provider.of<AppGlobalModelView>(context, listen: false)
-        .deleteChatById(widget.user.id);
+    final UserListController controller = Get.find();
+    controller.deleteChatById(widget.user.value.id);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/store/models/cart/food_list_controller.dart';
+import 'package:flutter_study/store/cart/food_list_controller.dart';
 import 'package:get/get.dart';
 
 import '../../components/counter_button/counter_button.dart';

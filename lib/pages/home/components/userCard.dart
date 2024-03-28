@@ -4,12 +4,13 @@ import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/home/widgets/homeContent.dart';
 import 'package:flutter_study/utils/random_num.dart';
 import 'package:flutter_study/utils/unit.dart';
+import 'package:get/get.dart';
 
 class UserCard extends StatelessWidget {
   final bool isWhite;
   final int count;
   final void Function(User user) handleHiBtnClick;
-  final User user;
+  final Rx<User> user;
 
   const UserCard({
     Key? key,
@@ -49,7 +50,7 @@ class UserCard extends StatelessWidget {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        handleHiBtnClick(user);
+                        handleHiBtnClick(user.value);
                       },
                       child:
                           const Image(image: chatImage, width: 40, height: 40),

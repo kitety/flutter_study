@@ -2,7 +2,6 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_study/l10n/application_localizations_delegate.dart';
-import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/cart/cart.dart';
 import 'package:flutter_study/pages/food_detail/food_detail.dart';
 import 'package:flutter_study/pages/food_list/food_list.dart';
@@ -11,14 +10,12 @@ import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
 import 'package:flutter_study/route/route.dart';
-import 'package:flutter_study/store/models/cart/food_list_bindings.dart';
-import 'package:flutter_study/utils/local_helper.dart';
+import 'package:flutter_study/store/cart/food_list_controller.dart';
+import 'package:flutter_study/store/store_binding.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
-import 'package:flutter_study/utils/random_num.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
-import 'store/models/message_global.dart';
+import 'store/user/user_list_controller.dart';
 
 BottomNavigationBarItem createItem(String title, Widget icon) {
   return BottomNavigationBarItem(
@@ -43,7 +40,7 @@ class App extends StatelessWidget {
         Locale('en'),
         Locale('de'),
       ],
-      initialBinding: FoodListBindings(),
+      initialBinding: StoreBindings(),
       initialRoute: RouteBaseConfig.home,
       getPages: [
         GetPage(name: RouteBaseConfig.home, page: () => const MyStackPage()),
@@ -53,37 +50,76 @@ class App extends StatelessWidget {
   }
 }
 
-class MessageBottomWidget extends StatelessWidget {
-  const MessageBottomWidget({
+class CartBottomWidget extends StatelessWidget {
+  final controller = Get.put(FoodListController());
+  CartBottomWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppGlobalModelView>(
-      builder: (context, counterViewModel, child) {
-        final counterText = counterViewModel.chatCount.toString();
-        final isShowBadge = counterViewModel.chatList.isNotEmpty;
-        final badgeIcon = badges.Badge(
-          badgeStyle: const badges.BadgeStyle(
-              badgeColor: Colors.blue,
-              badgeGradient: badges.BadgeGradient.linear(
-                colors: [
-                  Color.fromRGBO(255, 207, 157, 1.0),
-                  Color.fromRGBO(255, 161, 100, 1.0),
-                ],
-              )),
-          position: badges.BadgePosition.topEnd(top: -14),
-          badgeContent: Text(
-            counterText,
-            style: const TextStyle(color: Colors.white, fontSize: 12),
-          ),
-          child: child,
-        );
-        return isShowBadge ? badgeIcon : child!;
+    return GetBuilder<FoodListController>(
+      init: controller,
+      builder: (controller) {
+        final cartItems =
+            controller.foodsList.where((p0) => p0.value.isInCart).toList();
+        final counterText = cartItems.length.toString();
+        final isShowBadge = cartItems.isNotEmpty;
+        const iconWidget = Icon(Icons.cable);
+        return isShowBadge
+            ? getBadgesWidget(counterText: counterText, child: iconWidget)
+            : iconWidget;
       },
-      child: const Icon(Icons.message),
     );
+  }
+}
+
+class getBadgesWidget extends StatelessWidget {
+  final String counterText;
+
+  final Widget child;
+  const getBadgesWidget(
+      {super.key, required this.counterText, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return badges.Badge(
+      badgeStyle: const badges.BadgeStyle(
+          badgeColor: Colors.blue,
+          badgeGradient: badges.BadgeGradient.linear(
+            colors: [
+              Color.fromRGBO(255, 207, 157, 1.0),
+              Color.fromRGBO(255, 161, 100, 1.0),
+            ],
+          )),
+      position: badges.BadgePosition.topEnd(top: -14),
+      badgeContent: Text(
+        counterText,
+        style: const TextStyle(color: Colors.white, fontSize: 12),
+      ),
+      child: child,
+    );
+  }
+}
+
+class MessageBottomWidget extends StatelessWidget {
+  final controller = Get.put(UserListController());
+  MessageBottomWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<UserListController>(
+        init: controller,
+        builder: (controller) {
+          const iconWidget = Icon(Icons.message);
+          final counterText = controller.chatCount.toString();
+          final isShowBadge = controller.chatList.isNotEmpty;
+          final badgeIcon =
+              getBadgesWidget(counterText: counterText, child: iconWidget);
+          return isShowBadge ? badgeIcon : iconWidget;
+        });
   }
 }
 
@@ -109,10 +145,10 @@ class _MyStackPageState extends State<MyStackPage> {
         items: [
           createItem("Home", const Icon(Icons.home)),
           createItem("Like", const Icon(Icons.favorite)),
-          createItem("Chat", const MessageBottomWidget()),
+          createItem("Chat", MessageBottomWidget()),
           createItem("For You", const Icon(Icons.local_activity)),
-          createItem("My", const Icon(Icons.person)),
-          createItem("Cart", const Icon(Icons.cable)),
+          createItem("Product", const Icon(Icons.person)),
+          createItem("Cart", CartBottomWidget()),
         ],
         onTap: (index) {
           setState(() {
@@ -134,19 +170,5 @@ class _MyStackPageState extends State<MyStackPage> {
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(microseconds: 500), initStoreData);
-  }
-
-  void initStoreData() {
-    List.generate(30, (index) {
-      final user = User(generateRandomName(), genRandomNum(1.2, 3.0),
-          generateRandomUserId(), []);
-      Provider.of<AppGlobalModelView>(context, listen: false).addUser(user);
-    });
   }
 }

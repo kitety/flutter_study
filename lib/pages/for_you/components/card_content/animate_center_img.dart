@@ -65,7 +65,6 @@ class _AnimateCenterImgState extends State<AnimateCenterImg> {
     print('zhixingzhixing');
     final Size screenSize = MediaQuery.of(context).size;
     final double screenWidth = screenSize.width;
-    final double screenHeight = screenSize.height;
     var imgWidth = 240.0;
     // 首先执行放大
     setState(() {

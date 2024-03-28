@@ -18,7 +18,7 @@ class _MessageState extends State<Message> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar,
-      body: const MessageContent(),
+      body: MessageContent(),
     );
   }
 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
+import 'package:get/get.dart';
 
 class HomeTopCard extends StatelessWidget {
   final int count;
   final Function(User) handleHiBtnClick;
-  final List<User> users;
+  final List<Rx<User>> users;
   const HomeTopCard(
       {Key? key,
       required this.count,
