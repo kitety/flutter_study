@@ -5,15 +5,12 @@ import 'package:flutter_study/store/user/user_list_controller.dart';
 import 'package:get/get.dart';
 
 class MessageContent extends StatelessWidget {
-  final controller = Get.put(UserListController());
-
-  MessageContent({Key? key}) : super(key: key);
+  const MessageContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SlidableAutoCloseBehavior(
       child: GetBuilder<UserListController>(
-        init: controller,
         builder: (controller) {
           final chatUsers = controller.chatList;
           final isHaveChatUser = chatUsers.isNotEmpty;

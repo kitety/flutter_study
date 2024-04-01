@@ -19,17 +19,14 @@ BottomNavigationBarItem createItem(String title, Widget icon) {
   );
 }
 
-
 class CartBottomWidget extends StatelessWidget {
-  final controller = Get.put(FoodListController());
-  CartBottomWidget({
+  const CartBottomWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FoodListController>(
-      init: controller,
       builder: (controller) {
         final cartItems =
             controller.foodsList.where((p0) => p0.value.isInCart).toList();
@@ -73,7 +70,6 @@ class getBadgesWidget extends StatelessWidget {
 }
 
 class MessageBottomWidget extends StatelessWidget {
-  final controller = Get.put(UserListController());
   MessageBottomWidget({
     super.key,
   });
@@ -81,7 +77,6 @@ class MessageBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserListController>(
-        init: controller,
         builder: (controller) {
           const iconWidget = Icon(Icons.message);
           final counterText = controller.chatCount.toString();
@@ -118,7 +113,7 @@ class _MyStackPageState extends State<MyStackPage> {
           createItem("Chat", MessageBottomWidget()),
           createItem("For You", const Icon(Icons.local_activity)),
           createItem("Product", const Icon(Icons.person)),
-          createItem("Cart", CartBottomWidget()),
+          createItem("Cart", const CartBottomWidget()),
         ],
         onTap: (index) {
           setState(() {

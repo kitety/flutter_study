@@ -17,14 +17,12 @@ class HomeContent extends StatelessWidget {
   static double textHeight = 60.0;
   static var allGap =
       2 * containerPadding + crossAxisSpacing * (crossAxisCount - 1);
-  final controller = Get.put(UserListController());
 
-  HomeContent({Key? key}) : super(key: key);
+  const HomeContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserListController>(
-      init: controller,
       builder: (controller) {
         final list = controller.users;
         int stoneCount = controller.stoneCount;

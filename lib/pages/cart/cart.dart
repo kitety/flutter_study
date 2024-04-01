@@ -12,20 +12,18 @@ class Cart extends StatelessWidget {
       appBar: AppBar(
         title: const Text('购物车'),
       ),
-      body: CartContentWidget(),
+      body: const CartContentWidget(),
     );
   }
 }
 
 class CartContentWidget extends StatelessWidget {
-  final controller = Get.put(FoodListController());
-  CartContentWidget({
+  const CartContentWidget({
     super.key,
   });
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: controller,
+    return GetBuilder<FoodListController>(
       builder: (controller) {
         final cartFoodList =
             controller.foodsList.where((p0) => p0.value.isInCart).toList();
