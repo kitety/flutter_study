@@ -6,6 +6,8 @@ import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
+import 'package:flutter_study/pages/obx-demo/OObx.dart';
+import 'package:flutter_study/pages/obx-demo/OObx2.dart';
 import 'package:flutter_study/store/cart/food_list_controller.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
@@ -70,21 +72,20 @@ class getBadgesWidget extends StatelessWidget {
 }
 
 class MessageBottomWidget extends StatelessWidget {
-  MessageBottomWidget({
+  const MessageBottomWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<UserListController>(
-        builder: (controller) {
-          const iconWidget = Icon(Icons.message);
-          final counterText = controller.chatCount.toString();
-          final isShowBadge = controller.chatList.isNotEmpty;
-          final badgeIcon =
-              getBadgesWidget(counterText: counterText, child: iconWidget);
-          return isShowBadge ? badgeIcon : iconWidget;
-        });
+    return GetBuilder<UserListController>(builder: (controller) {
+      const iconWidget = Icon(Icons.message);
+      final counterText = controller.chatCount.toString();
+      final isShowBadge = controller.chatList.isNotEmpty;
+      final badgeIcon =
+          getBadgesWidget(counterText: counterText, child: iconWidget);
+      return isShowBadge ? badgeIcon : iconWidget;
+    });
   }
 }
 
@@ -96,7 +97,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 4;
+  int _currentIndex = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +111,12 @@ class _MyStackPageState extends State<MyStackPage> {
         items: [
           createItem("Home", const Icon(Icons.home)),
           createItem("Like", const Icon(Icons.favorite)),
-          createItem("Chat", MessageBottomWidget()),
+          createItem("Chat", const MessageBottomWidget()),
           createItem("For You", const Icon(Icons.local_activity)),
           createItem("Product", const Icon(Icons.person)),
           createItem("Cart", const CartBottomWidget()),
+          createItem("TMP", const Icon(Icons.person)),
+          createItem("TMP", const Icon(Icons.person)),
         ],
         onTap: (index) {
           setState(() {
@@ -125,13 +128,15 @@ class _MyStackPageState extends State<MyStackPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          Home(),
-          Like(),
-          Message(),
-          ForYou(),
-          FoodListWidget(),
-          Cart()
+        children: [
+          const Home(),
+          const Like(),
+          const Message(),
+          const ForYou(),
+          const FoodListWidget(),
+          const Cart(),
+          OObx(),
+          OObx2()
         ],
       ),
     );

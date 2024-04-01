@@ -57,7 +57,7 @@ class UserListController extends GetxController {
   // 减少钻石数量
   void reduceStoneCount(int count) {
     _stoneCount -= count;
-    update();
+    // update();
   }
 
   // 删除User
