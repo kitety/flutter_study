@@ -7,9 +7,8 @@ import '../utils/local_helper.dart';
 import '../utils/random_num.dart';
 
 class ApiService {
-  static Future<List<Rx<Food>>> getFoods() async {
-    final foodList =
-        foodNameList.map((e) => Food(count: 0, name: e).obs).toList();
+  static Future<List<Food>> getFoods() async {
+    final foodList = foodNameList.map((name) => Food(name: name)).toList();
     return foodList;
   }
 

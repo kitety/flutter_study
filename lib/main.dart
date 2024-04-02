@@ -30,7 +30,7 @@ class App extends StatelessWidget {
       initialRoute: RouteBaseConfig.home,
       getPages: [
         GetPage(name: RouteBaseConfig.home, page: () => const MyStackPage()),
-        GetPage(name: RouteBaseConfig.detail, page: () => const FoodDetail()),
+        GetPage(name: RouteBaseConfig.detail, page: () => FoodDetail()),
       ],
     );
   }

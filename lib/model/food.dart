@@ -1,7 +1,16 @@
+class CartItem {
+  Food food;
+  int count;
+
+  CartItem({required this.food, required this.count});
+
+  void updateCount(int val) {
+    count = val;
+  }
+}
+
 class Food {
   String name;
-  int count;
-  bool isInCart = false;
 
-  Food({required this.name, required this.count});
+  Food({required this.name});
 }

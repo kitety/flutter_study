@@ -16,13 +16,13 @@ class FoodListContent extends GetView<FoodListController> {
       itemCount: controller.foodsList.length,
       itemBuilder: (BuildContext context, int index) {
         final food = foodList[index];
-        String name = food.value.name;
+        String name = food.name;
         return ListTile(
           title: Text(name),
           trailing: IconButton(
             icon: const Icon(Icons.arrow_forward),
             onPressed: () {
-              Get.toNamed(RouteBaseConfig.detail, arguments: index);
+              Get.toNamed(RouteBaseConfig.detail, arguments: food);
             },
           ),
         );

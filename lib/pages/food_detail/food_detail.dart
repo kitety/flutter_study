@@ -1,25 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/store/cart/food_list_controller.dart';
 import 'package:get/get.dart';
 
 import '../../components/counter_button/counter_button.dart';
+import '../../model/food.dart';
+import '../../route/route.dart';
+import '../../store/cart/food_list_controller.dart';
 import '../../utils/random.dart';
 
-class FoodDetail extends StatefulWidget {
-  const FoodDetail({super.key});
+class FoodDetail extends GetView<FoodListController> {
+  final Food food = Get.arguments as Food;
+  final count = 0.obs;
+  FoodDetail({Key? key}) : super(key: key);
 
-  @override
-  State<FoodDetail> createState() => _FoodDetailState();
-}
-
-class _FoodDetailState extends State<FoodDetail> {
-  final FoodListController controller = Get.put(FoodListController());
-  int index = 0;
+  GetBuilder AddToCartWidget() {
+    return GetBuilder<FoodListController>(
+      builder: (controller) {
+        final foodIsInCart = controller.cartFoodList
+            .any((element) => element.food.name == food.name);
+        print(foodIsInCart);
+        return IgnorePointer(
+          ignoring: foodIsInCart,
+          child: Opacity(
+            opacity: foodIsInCart ? 0.5 : 1.0,
+            child: ElevatedButton(
+              onPressed: () {
+                controller.addFoodToCart(food, count.value);
+              },
+              child: const Text('加入购物车'),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final food = controller.foodsList[index];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Food Detail'),
@@ -33,7 +49,7 @@ class _FoodDetailState extends State<FoodDetail> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                food.value.name,
+                food.name,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -44,45 +60,10 @@ class _FoodDetailState extends State<FoodDetail> {
           const SizedBox(
             height: 10,
           ),
-          Obx(
-            () => CounterButton(
-              min: 0,
-              max: 999,
-              value: food.value.count,
-              onChange: (int newCount) {
-                food.update((val) {
-                  val?.count = newCount;
-                });
-              },
-            ),
-          ),
-          Obx(
-            () => IgnorePointer(
-              ignoring: food.value.isInCart,
-              child: Opacity(
-                opacity: food.value.isInCart ? 0.5 : 1.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    food.update((val) {
-                      val?.isInCart = true;
-                    });
-                    controller.update();
-                  },
-                  child: const Text('加入购物车'),
-                ),
-              ),
-            ),
-          ),
+          getFoodCountWidget(),
+          AddToCartWidget(),
           ElevatedButton(
-            onPressed: () {
-              int newIndex = getRandomIndex(controller.foodsList.length - 1);
-              while (newIndex == index) {
-                newIndex = getRandomIndex(controller.foodsList.length - 1);
-              }
-              setState(() {
-                index = newIndex;
-              });
-            },
+            onPressed: handleRandomFood,
             child: const Text('查看随机商品'),
           ),
         ],
@@ -90,19 +71,29 @@ class _FoodDetailState extends State<FoodDetail> {
     );
   }
 
-  void handleValueChange(int val) {
-    print('object');
-    print(val);
-    // num = val;
+  Obx getFoodCountWidget() {
+    return Obx(
+      () => CounterButton(
+        min: 0,
+        max: 999,
+        value: count.value,
+        onChange: (int newCount) {
+          count.value = newCount;
+        },
+      ),
+    );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // 获取 Get.arguments 的值并更新 index 的状态
-    int newIndex = Get.arguments as int;
-    setState(() {
-      index = newIndex;
-    });
+  void handleRandomFood() async {
+    int newIndex = getRandomIndex(controller.foodsList.length - 1);
+    bool isCurrent = controller.foodsList[newIndex].name == food.name;
+    while (isCurrent) {
+      newIndex = getRandomIndex(controller.foodsList.length - 1);
+      isCurrent = controller.foodsList[newIndex].name == food.name;
+    }
+    Get.offAndToNamed(
+      RouteBaseConfig.detail,
+      arguments: controller.foodsList[newIndex],
+    );
   }
 }

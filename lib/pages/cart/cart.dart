@@ -25,29 +25,25 @@ class CartContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<FoodListController>(
       builder: (controller) {
-        final cartFoodList =
-            controller.foodsList.where((p0) => p0.value.isInCart).toList();
+        final cartFoodList = controller.cartFoodList;
+        if (cartFoodList.isEmpty) {
+          return Container();
+        }
         return ListView.builder(
           padding: const EdgeInsets.all(4),
           itemCount: cartFoodList.length,
           itemBuilder: (BuildContext context, int index) {
-            final food = cartFoodList[index];
-            String name = food.value.name;
+            final cartItem = cartFoodList[index];
+            String name = cartItem.food.name;
             return ListTile(
               title: Text(name),
-              trailing: Obx(
-                () => CounterButton(
-                  min: 0,
-                  max: 999,
-                  value: food.value.count,
-                  onChange: (newCount) {
-                    food.update(
-                      (val) {
-                        val?.count = newCount;
-                      },
-                    );
-                  },
-                ),
+              trailing: CounterButton(
+                min: 0,
+                max: 999,
+                value: cartItem.count,
+                onChange: (newCount) {
+                  controller.updateCartItemCount(cartItem, newCount);
+                },
               ),
             );
           },

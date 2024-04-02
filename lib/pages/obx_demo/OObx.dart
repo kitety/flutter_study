@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'counter-obs.dart';
+import 'counter_obs.dart';
 
 class OObx extends StatelessWidget {
   final controller = GetCounterRxLogic();
@@ -15,10 +15,18 @@ class OObx extends StatelessWidget {
       ),
       body: Container(
         child: Obx(
-          () => Text('${controller.count}'),
+          () => Column(
+            children: [
+              Text('${controller.count}111'),
+              Obx(
+                () => Text('${controller.count}'),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "btn1",
         child: const Icon(Icons.add),
         onPressed: () {
           controller.increase();

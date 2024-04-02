@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'counter-controller.dart';
+import 'counter_controller.dart';
 
 class OObx2 extends StatelessWidget {
   final GetCounterEasyLogic logic = Get.put(GetCounterEasyLogic());
@@ -22,6 +22,7 @@ class OObx2 extends StatelessWidget {
         }),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "btn2",
         onPressed: () => logic.increase(),
         child: const Icon(Icons.add),
       ),

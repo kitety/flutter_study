@@ -6,8 +6,8 @@ import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
-import 'package:flutter_study/pages/obx-demo/OObx.dart';
-import 'package:flutter_study/pages/obx-demo/OObx2.dart';
+import 'package:flutter_study/pages/obx_demo/OObx.dart';
+import 'package:flutter_study/pages/obx_demo/OObx2.dart';
 import 'package:flutter_study/store/cart/food_list_controller.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
@@ -30,8 +30,7 @@ class CartBottomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<FoodListController>(
       builder: (controller) {
-        final cartItems =
-            controller.foodsList.where((p0) => p0.value.isInCart).toList();
+        final cartItems = controller.cartFoodList;
         final counterText = cartItems.length.toString();
         final isShowBadge = cartItems.isNotEmpty;
         const iconWidget = Icon(Icons.cable);
@@ -97,7 +96,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 6;
+  int _currentIndex = 4;
 
   @override
   Widget build(BuildContext context) {
