@@ -1,3 +1,4 @@
+import 'package:flutter_study/model/cart.dart';
 import 'package:flutter_study/model/food.dart';
 import 'package:flutter_study/service/api_server.dart';
 import 'package:get/get.dart';

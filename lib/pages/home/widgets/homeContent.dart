@@ -90,7 +90,7 @@ class HomeContent extends StatelessWidget {
   }
 
   HomeTopCard getTopCard(
-      List<Rx<User>> list, int stoneCount, BuildContext context) {
+      List<User> list, int stoneCount, BuildContext context) {
     return HomeTopCard(
       users: list.sublist(0, 2),
       count: stoneCount,

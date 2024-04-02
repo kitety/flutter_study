@@ -8,7 +8,7 @@ import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 
 class UserMsgCard extends StatefulWidget {
-  final Rx<User> user;
+  final User user;
   const UserMsgCard({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _UserMsgCardState extends State<UserMsgCard> {
   Widget build(BuildContext context) {
     final deleteText = LT.t?.flashChatEndChat ?? '';
     return Slidable(
-      key: ValueKey(widget.user.value.id),
+      key: ValueKey(widget.user.id),
       // The end action pane is the one at the right or the bottom side.
       endActionPane: ActionPane(
         extentRatio: 0.35,
@@ -33,12 +33,12 @@ class _UserMsgCardState extends State<UserMsgCard> {
           )
         ],
       ),
-      child: UserMsgContainer(user: widget.user.value),
+      child: UserMsgContainer(user: widget.user),
     );
   }
 
   void handleDeleteChat() {
     final UserListController controller = Get.find();
-    controller.deleteChatById(widget.user.value.id);
+    controller.deleteChatById(widget.user.id);
   }
 }

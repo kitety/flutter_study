@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class HomeTopCard extends StatelessWidget {
   final int count;
   final Function(User) handleHiBtnClick;
-  final List<Rx<User>> users;
+  final List<User> users;
   const HomeTopCard(
       {Key? key,
       required this.count,

@@ -12,7 +12,7 @@ class ApiService {
     return foodList;
   }
 
-  static Future<List<Rx<User>>> getUsers() async {
+  static Future<List<User>> getUsers() async {
     return List.generate(
       30,
       (index) => User(
@@ -20,7 +20,7 @@ class ApiService {
         genRandomNum(1.2, 3.0),
         generateRandomUserId(),
         [],
-      ).obs,
+      ),
     ).toList();
   }
 }

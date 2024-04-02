@@ -6,22 +6,21 @@ import '../../model/user.dart';
 class UserListController extends GetxController {
   var _stoneCount = 1000.obs;
 
-  final _users = <Rx<User>>[].obs;
-  final _chatList = <Rx<User>>[].obs;
+  final _users = <User>[];
+  final _chatList = <User>[];
 
   int get chatCount => _chatList.length;
-  RxList<Rx<User>> get chatList => _chatList;
+  List<User> get chatList => _chatList;
   int get stoneCount => _stoneCount.value;
-  RxList<Rx<User>> get users => _users;
+  List<User> get users => _users;
 
   // 添加钻石数量
   void addStoneCount(int count) {
     _stoneCount.value += count;
-    update();
   }
 
   // 添加User
-  void addUser(Rx<User> user) {
+  void addUser(User user) {
     _users.add(user);
     update();
   }
@@ -29,9 +28,9 @@ class UserListController extends GetxController {
   // 添加Chat by id
   void addUserToChatById(String id, String msg) {
     // check is id in _chatList
-    final user = _users.firstWhere((element) => element.value.id == id);
-    user.value.addMessage(msg);
-    if (_chatList.indexWhere((element) => element.value.id == id) == -1) {
+    final user = _users.firstWhere((element) => element.id == id);
+    user.addMessage(msg);
+    if (!_chatList.any((element) => element.id == id)) {
       _chatList.add(user);
     }
     update();
@@ -39,7 +38,7 @@ class UserListController extends GetxController {
 
   // 删除Chat by id
   void deleteChatById(String id) {
-    _chatList.removeWhere((element) => element.value.id == id);
+    _chatList.removeWhere((element) => element.id == id);
     update();
   }
 
