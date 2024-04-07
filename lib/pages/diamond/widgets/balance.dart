@@ -1,4 +1,3 @@
-import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 
@@ -7,25 +6,49 @@ class Balance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Balance',
-          style: TitleText_16.copyWith(color: White_FFF),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFFFF9B56.toInt()),
+            Color(0xFFFFA164.toInt()),
+          ], // 渐变颜色数组
+          begin: Alignment.topCenter, // 渐变开始位置
+          end: Alignment.bottomCenter, // 渐变结束位置
         ),
-        buildBalanceCountWidget(),
-      ],
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 15,
+          ),
+          Text(
+            'Balance',
+            style: BodyText_16.copyWith(color: White_FFF),
+          ),
+          buildBalanceCountWidget(),
+          const SizedBox(
+            height: 36,
+          ),
+        ],
+      ),
     );
   }
 
-  EasyRichText buildBalanceCountWidget() {
-    const String balanceCountStr = '80000 @DIAMOND@';
-    return EasyRichText(
-      balanceCountStr,
-      patternList: [
-        EasyRichTextPattern(
-          targetString: '@DIAMOND@',
-          style: TextStyle(color: Colors.blue),
+  Row buildBalanceCountWidget() {
+    const int balanceCount = 80000;
+    return const Row(
+      // mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          '80000',
+          style: TextStyle(
+              fontSize: 30.0, color: White_FFF, fontWeight: FontWeight.w900),
+        ),
+        Image(
+          image: AssetImage('images/stone.png'),
+          width: 33,
         ),
       ],
     );
