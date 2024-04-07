@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_study/pages/cart/cart.dart';
+import 'package:flutter_study/pages/diamond/diamond.dart';
 import 'package:flutter_study/pages/food_list/food_list.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
@@ -53,13 +54,14 @@ class getBadgesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return badges.Badge(
       badgeStyle: const badges.BadgeStyle(
-          badgeColor: Colors.blue,
-          badgeGradient: badges.BadgeGradient.linear(
-            colors: [
-              Color.fromRGBO(255, 207, 157, 1.0),
-              Color.fromRGBO(255, 161, 100, 1.0),
-            ],
-          )),
+        badgeColor: Colors.blue,
+        badgeGradient: badges.BadgeGradient.linear(
+          colors: [
+            Color.fromRGBO(255, 207, 157, 1.0),
+            Color.fromRGBO(255, 161, 100, 1.0),
+          ],
+        ),
+      ),
       position: badges.BadgePosition.topEnd(top: -14),
       badgeContent: Text(
         counterText,
@@ -89,6 +91,7 @@ class MessageBottomWidget extends StatelessWidget {
 }
 
 class MyStackPage extends StatefulWidget {
+
   const MyStackPage({super.key});
 
   @override
@@ -114,8 +117,9 @@ class _MyStackPageState extends State<MyStackPage> {
           createItem("For You", const Icon(Icons.local_activity)),
           createItem("Product", const Icon(Icons.person)),
           createItem("Cart", const CartBottomWidget()),
-          createItem("TMP", const Icon(Icons.person)),
-          createItem("TMP", const Icon(Icons.person)),
+          // createItem("TMP", const Icon(Icons.person)),
+          // createItem("TMP", const Icon(Icons.person)),
+          createItem("Diamond", const Icon(Icons.diamond)),
         ],
         onTap: (index) {
           setState(() {
@@ -127,15 +131,16 @@ class _MyStackPageState extends State<MyStackPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: [
-          const Home(),
-          const Like(),
-          const Message(),
-          const ForYou(),
-          const FoodListWidget(),
-          const Cart(),
-          OObx(),
-          OObx2()
+        children: const [
+          Home(),
+          Like(),
+          Message(),
+          ForYou(),
+          FoodListWidget(),
+          Cart(),
+          // OObx(),
+          // OObx2()
+          Diamond()
         ],
       ),
     );
