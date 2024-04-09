@@ -99,7 +99,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 4;
+  int _currentIndex = 6;
 
   @override
   Widget build(BuildContext context) {

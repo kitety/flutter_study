@@ -16,10 +16,10 @@ class NavigationForNamedExample extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () async {
-                Get.toNamed("/my");
-              },
-              child: Text("跳转到首页"))
+                onPressed: () async {
+                  Get.toNamed("/my");
+                },
+                child: Text("跳转到首页"))
           ],
         ),
       ),
