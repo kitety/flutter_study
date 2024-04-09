@@ -19,6 +19,7 @@ dependencies:
   uuid: ^3.0.0
   get: ^4.6.6
   easy_rich_text: ^2.1.0
+  easy_debounce: ^2.0.3
 
 
 dev_dependencies:
