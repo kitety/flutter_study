@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 
-class PopularCard extends StatelessWidget {
-  const PopularCard({Key? key}) : super(key: key);
+class BuyStoneCard extends StatelessWidget {
+  const BuyStoneCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,36 +10,41 @@ class PopularCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          padding: const EdgeInsets.fromLTRB(10, 22, 10, 10),
+          padding: const EdgeInsets.fromLTRB(10, 31, 10, 10),
           decoration: BoxDecoration(
-            color: Colors.blue, // 背景色为蓝色
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20.0), // 设置圆角半径为10
+            border: Border.all(
+              color: const Color.fromARGB(255, 238, 238, 238),
+            ),
           ),
           child: Column(
             children: [
+              const Image(
+                image: AssetImage('images/stone.png'),
+                width: 38,
+              ),
               Text(
-                'One time offer',
-                style: TitleText_18,
+                '230',
+                style: TitleText_24,
               ),
-              const SizedBox(height: 5),
-              const Row(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '200',
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        color: Black_444,
-                        fontWeight: FontWeight.w900),
+              const SizedBox(height: 2),
+              Container(
+                width: 88,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image:
+                        AssetImage('images/diamond_shop/tips_bg.png'), // 背景图片路径
+                    fit: BoxFit.contain, // 图片填充方式
                   ),
-                  Image(
-                    image: AssetImage('images/stone.png'),
-                    width: 33,
-                  ),
-                ],
+                ),
+                child: Text(
+                  '+50',
+                  style: BodyText_16,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 14),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.only(
@@ -91,7 +96,7 @@ class PopularCard extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Most popular',
+                  'Best Value',
                   style: BodySentence_12.copyWith(color: White_FFF),
                 ),
               ),

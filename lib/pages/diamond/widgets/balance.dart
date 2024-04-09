@@ -26,6 +26,9 @@ class Balance extends StatelessWidget {
             'Balance',
             style: BodyText_16.copyWith(color: White_FFF),
           ),
+          const SizedBox(
+            height: 9,
+          ),
           buildBalanceCountWidget(),
           const SizedBox(
             height: 36,
@@ -40,11 +43,15 @@ class Balance extends StatelessWidget {
     return const Row(
       // mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           '80000',
           style: TextStyle(
               fontSize: 30.0, color: White_FFF, fontWeight: FontWeight.w900),
+        ),
+        SizedBox(
+          width: 1,
         ),
         Image(
           image: AssetImage('images/stone.png'),

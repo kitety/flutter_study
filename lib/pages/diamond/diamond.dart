@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/pages/diamond/widgets/balance.dart';
+import 'package:flutter_study/pages/diamond/widgets/buy_stone_card.dart';
+import 'package:flutter_study/pages/diamond/widgets/join_vip_card.dart';
 import 'package:flutter_study/pages/diamond/widgets/popular_card.dart';
 
 class Diamond extends StatelessWidget {
@@ -38,10 +40,25 @@ class Diamond extends StatelessWidget {
           ),
         ),
         // 后面需要替换为滚动组件
-        body: const Column(
-          children: [
+        body: ListView(
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+          children: const [
+            // 顶部余额
             Balance(),
+            SizedBox(
+              height: 31,
+            ),
+            // most popular
             PopularCard(),
+            SizedBox(
+              height: 37,
+            ),
+            // join vip
+            JoinVipCard(),
+            SizedBox(
+              height: 38,
+            ),
+            BuyStoneCard()
           ],
         ));
   }
