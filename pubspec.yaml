@@ -18,8 +18,8 @@ dependencies:
   badges: ^3.1.2
   uuid: ^3.0.0
   get: ^4.6.6
-  easy_rich_text: ^2.1.0
-  easy_debounce: ^2.0.3
+  easy_rich_text: ^1.2.0
+  throttling: ^2.0.1
 
 
 dev_dependencies:

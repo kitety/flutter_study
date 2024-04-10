@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
+import 'package:flutter_study/model/shop.dart';
+import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
 
 class BuyStoneCard extends StatelessWidget {
-  const BuyStoneCard({Key? key}) : super(key: key);
+  // 这个卡片的宽高比
+  static const cardHeight = 180.0;
+  final Promotion promotion;
+  const BuyStoneCard({Key? key, required this.promotion}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class BuyStoneCard extends StatelessWidget {
                 width: 38,
               ),
               Text(
-                '230',
+                '${promotion.count}',
                 style: TitleText_24,
               ),
               const SizedBox(height: 2),
@@ -39,7 +44,7 @@ class BuyStoneCard extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  '+50',
+                  '+${promotion.increaseCount}',
                   style: BodyText_16,
                   textAlign: TextAlign.center,
                 ),
@@ -53,19 +58,12 @@ class BuyStoneCard extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(19.0),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFFF646B.toInt()),
-                      Color(0xFFFFA164.toInt()),
-                    ], // 渐变色
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
+                  gradient: btnBgLinearGradient,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('\$0.99',
+                    Text('\$${promotion.money}',
                         style: BodyText_16.copyWith(color: White_FFF)),
                   ],
                 ),
@@ -73,37 +71,37 @@ class BuyStoneCard extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-          top: -10,
-          right: 0,
-          left: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 23,
-                padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(19.0),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFFF646B.toInt()),
-                      Color(0xFFFFA164.toInt()),
-                    ], // 渐变色
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                child: Text(
-                  'Best Value',
-                  style: BodySentence_12.copyWith(color: White_FFF),
-                ),
-              ),
-            ],
-          ),
-        )
+        getTopTip()
       ],
+    );
+  }
+
+  Widget getTopTip() {
+    if (!promotion.isShowTip) {
+      return Container();
+    }
+    return Positioned(
+      top: -10,
+      right: 0,
+      left: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: 23,
+            padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(19.0),
+              gradient: btnBgLinearGradient,
+            ),
+            child: Text(
+              promotion.tipText,
+              style: BodySentence_12.copyWith(color: White_FFF),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

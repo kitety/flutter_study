@@ -1,5 +1,8 @@
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
+import 'package:flutter_study/common/wording_pattern/wording_image_pattern.dart';
+import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
 
 // const
 
@@ -7,6 +10,8 @@ class JoinVipCard extends StatelessWidget {
   const JoinVipCard({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    const stoneCount = 600;
+    String vipPromotionTip = 'Join VIP and get $stoneCount @DIAMONDS@';
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -28,14 +33,39 @@ class JoinVipCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Text(
-                'Join VIP and get',
-                style: TitleText_18,
+              EasyRichText(
+                vipPromotionTip,
+                defaultStyle: BodyText_18,
+                textAlign: TextAlign.center,
+                patternList: [
+                  EasyRichTextPattern(
+                    targetString: WordingImagePattern.diamonds,
+                    style: BodyText_16,
+                    matchBuilder: (c, s) {
+                      return WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 2),
+                          child: Image.asset(
+                            WordingImagePattern.getImagePath(
+                                WordingImagePattern.diamonds),
+                            height: 20,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  EasyRichTextPattern(targetString: 'VIP', style: TitleText_16),
+                  EasyRichTextPattern(
+                    targetString: stoneCount.toString(),
+                    style: TitleText_16,
+                  ),
+                ],
               ),
               const SizedBox(height: 6),
               Text(
                 'for free per month',
-                style: TitleText_18,
+                style: BodyText_18,
               ),
               const SizedBox(height: 12),
               Row(
@@ -131,20 +161,14 @@ class JoinVipCard extends StatelessWidget {
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
+                height: 38,
                 padding: const EdgeInsets.only(
                   top: 8,
                   bottom: 8,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(19.0),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFFF646B.toInt()),
-                      Color(0xFFFFA164.toInt()),
-                    ], // 渐变色
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
+                  gradient: btnBgLinearGradient,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

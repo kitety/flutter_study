@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
+import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
 
 class Balance extends StatelessWidget {
-  const Balance({Key? key}) : super(key: key);
+  final int balance;
+  const Balance({Key? key, required this.balance}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xFFFF9B56.toInt()),
-            Color(0xFFFFA164.toInt()),
-          ], // 渐变颜色数组
-          begin: Alignment.topCenter, // 渐变开始位置
-          end: Alignment.bottomCenter, // 渐变结束位置
-        ),
+        gradient: btnBgLinearGradient,
       ),
       child: Column(
         children: [
@@ -39,21 +34,20 @@ class Balance extends StatelessWidget {
   }
 
   Row buildBalanceCountWidget() {
-    const int balanceCount = 80000;
-    return const Row(
+    return Row(
       // mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '80000',
-          style: TextStyle(
+          '$balance',
+          style: const TextStyle(
               fontSize: 30.0, color: White_FFF, fontWeight: FontWeight.w900),
         ),
-        SizedBox(
+        const SizedBox(
           width: 1,
         ),
-        Image(
+        const Image(
           image: AssetImage('images/stone.png'),
           width: 33,
         ),
