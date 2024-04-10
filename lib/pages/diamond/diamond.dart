@@ -31,7 +31,7 @@ class _DiamondState extends State<Diamond> {
           if (controller.diamondShop.stoneBalance.isLowerThan(0)) {
             return Container();
           }
-          Widget vipPartContent = controller.diamondShop.isVip
+          Widget vipPartContent = !controller.diamondShop.isVip
               ? const Column(
                   children: [
                     SizedBox(

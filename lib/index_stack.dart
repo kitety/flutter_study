@@ -7,8 +7,6 @@ import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
 import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
-import 'package:flutter_study/pages/obx_demo/OObx.dart';
-import 'package:flutter_study/pages/obx_demo/OObx2.dart';
 import 'package:flutter_study/store/cart/food_list_controller.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
