@@ -4,9 +4,15 @@ import 'package:flutter_study/pages/for_you/components/card_content/constant.dar
 class AnimateBottomBtn extends StatefulWidget {
   final Widget child;
   final List<AnimationController> controllers;
-  const AnimateBottomBtn(
-      {Key? key, required this.child, required this.controllers})
-      : super(key: key);
+  final Animation<double> bigAnimation;
+  final Animation<double> smallAnimation;
+  const AnimateBottomBtn({
+    Key? key,
+    required this.child,
+    required this.controllers,
+    required this.bigAnimation,
+    required this.smallAnimation,
+  }) : super(key: key);
 
   @override
   _AnimateBottomBtnState createState() => _AnimateBottomBtnState();
@@ -14,6 +20,7 @@ class AnimateBottomBtn extends StatefulWidget {
 
 class _AnimateBottomBtnState extends State<AnimateBottomBtn>
     with TickerProviderStateMixin {
+  bool isComplete = false;
   late final AnimationController _controller = AnimationController(
     duration: bottomBtnShowDuration,
     vsync: this,
@@ -25,16 +32,24 @@ class _AnimateBottomBtnState extends State<AnimateBottomBtn>
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: _animation,
+      scale: isComplete ? widget.bigAnimation : widget.smallAnimation,
       child: widget.child,
     );
   }
 
-
   @override
   void initState() {
     super.initState();
-    _controller.forward();
+    Future.delayed(const Duration(seconds: 1), () {
+      _controller.forward();
+    });
     widget.controllers.add(_controller);
+    _animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          isComplete = true;
+        });
+      }
+    });
   }
 }

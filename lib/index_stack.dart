@@ -5,9 +5,9 @@ import 'package:flutter_study/pages/diamond/diamond.dart';
 import 'package:flutter_study/pages/food_list/food_list.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
-import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
 import 'package:flutter_study/store/cart/food_list_controller.dart';
+import 'package:flutter_study/temp.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 
@@ -89,7 +89,6 @@ class MessageBottomWidget extends StatelessWidget {
 }
 
 class MyStackPage extends StatefulWidget {
-
   const MyStackPage({super.key});
 
   @override
@@ -97,7 +96,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 6;
+  int _currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +130,8 @@ class _MyStackPageState extends State<MyStackPage> {
         index: _currentIndex,
         children: const [
           Home(),
-          Like(),
+          // Like(),
+          TweenSequencePage(),
           Message(),
           ForYou(),
           FoodListWidget(),
