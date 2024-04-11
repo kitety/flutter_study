@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/pages/for_you/components/card_content/constant.dart';
 
 class AnimateBottomBtn extends StatefulWidget {
   final Widget child;
@@ -20,19 +19,12 @@ class AnimateBottomBtn extends StatefulWidget {
 
 class _AnimateBottomBtnState extends State<AnimateBottomBtn>
     with TickerProviderStateMixin {
-  bool isComplete = false;
-  late final AnimationController _controller = AnimationController(
-    duration: bottomBtnShowDuration,
-    vsync: this,
-  );
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.fastOutSlowIn,
-  );
+  bool isBigPhase = true;
+
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: isComplete ? widget.bigAnimation : widget.smallAnimation,
+      scale: isBigPhase ? widget.bigAnimation : widget.smallAnimation,
       child: widget.child,
     );
   }
@@ -40,14 +32,10 @@ class _AnimateBottomBtnState extends State<AnimateBottomBtn>
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      _controller.forward();
-    });
-    widget.controllers.add(_controller);
-    _animation.addStatusListener((status) {
+    widget.bigAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          isComplete = true;
+          isBigPhase = false;
         });
       }
     });
