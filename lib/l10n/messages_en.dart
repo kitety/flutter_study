@@ -1473,6 +1473,17 @@ class MessageLookup extends MessageLookupByLibrary {
     'Chat_ReplyMessageVoiceShow_PageText2': (howMany) => "[Audio $howMany’’]",
     'DailyPicks_ProfileBoostInvite_PageText1': () => "Want to be here too?",
     'Like_RedeemedDiamondTitle_PageText1': (num,price) => "Congratulations! You have redeemed $num @DIAMONDS@ worth $price.",
+    'Purchase_DiamondShopNavBar_AppBarTitle': () => "Diamond Shop",
+    'Purchase_DiamondShopBalance_PageText1': () => "Balance",
+    'Purchase_DiamondShopMostPopularTip_ItemText': () => "Most popular",
+    'Purchase_DiamondShopMostPopular_PageText1': () => "One time offer",
+    'Purchase_DiamondShopVIPCard_PageText1': (num) => "Join VIP and get $num @DIAMONDS@",
+    'Purchase_DiamondShopVIPCard_PageText2': () => "for free per month",
+    'Purchase_DiamondShopVIPCardItem1_ItemText': () => "Fine Tune Your Search",
+    'Purchase_DiamondShopVIPCardItem2_ItemText': () => "See Who Liked You",
+    'Purchase_DiamondShopVIPCardItem3_ItemText': () => "Send message directly",
+    'Purchase_DiamondShopVIPCardJoin_Button': () => "Join Now",
+    'Purchase_DiamondShopBestPromotion_ItemText': () => "Best value",
   };
 
 }

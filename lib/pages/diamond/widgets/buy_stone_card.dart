@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/model/shop.dart';
-import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
+import 'package:flutter_study/pages/diamond/componets/gradient_btn.dart';
+import 'package:flutter_study/utils/currency.dart';
 
 class BuyStoneCard extends StatelessWidget {
   // 这个卡片的宽高比
@@ -50,24 +51,9 @@ class BuyStoneCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              Container(
-                width: double.infinity,
-                height: 36,
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  bottom: 8,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(19.0),
-                  gradient: btnBgLinearGradient,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('\$${promotion.money}',
-                        style: BodyText_16.copyWith(color: White_FFF)),
-                  ],
-                ),
+              GradientBtn(
+                height: 36.0,
+                text: formatPrice(promotion.money),
               ),
               const SizedBox(
                 height: 10,
@@ -91,19 +77,12 @@ class BuyStoneCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            alignment: Alignment.center,
-            height: 23,
-            padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(19.0),
-              gradient: btnBgLinearGradient,
-            ),
-            child: Text(
-              promotion.tipText,
-              style: BodySentence_12.copyWith(color: White_FFF),
-            ),
-          ),
+          GradientBtn(
+            textSize: 12,
+            height: 23.0,
+            text: promotion.tipText,
+            px: 9,
+          )
         ],
       ),
     );

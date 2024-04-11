@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/common/wording_pattern/wording_image_pattern.dart';
 import 'package:flutter_study/model/shop.dart';
-import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
+import 'package:flutter_study/pages/diamond/componets/gradient_btn.dart';
+import 'package:flutter_study/utils/currency.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
 
 class getMostPopularStone extends StatelessWidget {
   final String stoneCountStr;
@@ -72,7 +74,7 @@ class PopularCard extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'One time offer',
+                LT.t?.Purchase_DiamondShopMostPopular_PageText1 ?? '',
                 style: TitleText_18,
               ),
               const SizedBox(height: 5),
@@ -81,53 +83,35 @@ class PopularCard extends StatelessWidget {
                 countValue: countValue,
               ),
               const SizedBox(height: 12),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  bottom: 8,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(19.0),
-                  gradient: btnBgLinearGradient,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '\$${promotion.money}',
-                      style: BodyText_16.copyWith(color: White_FFF),
-                    ),
-                  ],
-                ),
-              ),
+              GradientBtn(
+                px: 12,
+                height: 38.0,
+                text: formatPrice(promotion.money),
+              )
             ],
           ),
         ),
-        Positioned(
-          top: -10,
-          right: 0,
-          left: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 23,
-                padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(19.0),
-                  gradient: btnBgLinearGradient,
-                ),
-                child: Text(
-                  promotion.tipText,
-                  style: BodySentence_12.copyWith(color: White_FFF),
-                ),
-              ),
-            ],
-          ),
-        )
+        getTopTextWidget()
       ],
+    );
+  }
+
+  Positioned getTopTextWidget() {
+    return Positioned(
+      top: -10,
+      right: 0,
+      left: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GradientBtn(
+            textSize: 12,
+            px: 9,
+            height: 23.0,
+            text: LT.t?.Purchase_DiamondShopMostPopularTip_ItemText ?? '',
+          )
+        ],
+      ),
     );
   }
 }

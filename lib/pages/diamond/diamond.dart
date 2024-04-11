@@ -6,6 +6,7 @@ import 'package:flutter_study/pages/diamond/widgets/buy_stone_card.dart';
 import 'package:flutter_study/pages/diamond/widgets/join_vip_card.dart';
 import 'package:flutter_study/pages/diamond/widgets/popular_card.dart';
 import 'package:flutter_study/store/shop/shop.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 import 'package:throttling/throttling.dart';
 
@@ -31,8 +32,9 @@ class _DiamondState extends State<Diamond> {
           if (controller.diamondShop.stoneBalance.isLowerThan(0)) {
             return Container();
           }
-          Widget vipPartContent = !controller.diamondShop.isVip
-              ? const Column(
+          Widget vipPartContent = controller.diamondShop.isVip
+              ? Container()
+              : const Column(
                   children: [
                     SizedBox(
                       height: 37,
@@ -40,17 +42,18 @@ class _DiamondState extends State<Diamond> {
                     // join vip
                     JoinVipCard(),
                   ],
-                )
-              : Container();
+                );
           return CustomScrollView(
             controller: _scrollController,
             slivers: [
+              // 顶部余额
               SliverPadding(
                 padding: const EdgeInsets.all(0),
                 sliver: SliverToBoxAdapter(
                   child: Balance(balance: controller.diamondShop.stoneBalance),
                 ),
               ),
+              // 最受欢迎的
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(25, 31, 25, 0),
                 sliver: SliverToBoxAdapter(
@@ -58,12 +61,14 @@ class _DiamondState extends State<Diamond> {
                     children: [
                       // most popular
                       PopularCard(
-                          promotion: controller.diamondShop.mostPopular),
+                        promotion: controller.diamondShop.mostPopular,
+                      ),
                       vipPartContent,
                     ],
                   ),
                 ),
               ),
+              // 下面的两列卡片
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(25, 38, 25, 0),
                 sliver: SliverGrid(
@@ -101,7 +106,7 @@ class _DiamondState extends State<Diamond> {
         ),
       ),
       title: Text(
-        'Diamond Shop',
+        LT.t?.Purchase_DiamondShopNavBar_AppBarTitle ?? '',
         style: TitleText_18.copyWith(color: White_FFF),
       ),
       leading: IconButton(
@@ -121,28 +126,30 @@ class _DiamondState extends State<Diamond> {
     super.dispose();
   }
 
-  Row getActionContent() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          '8000',
-          style: BodyText_14.copyWith(
-            color: White_FFF,
+  Widget getActionContent() {
+    return GetBuilder<ShopController>(builder: (controller) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${controller.diamondShop.stoneBalance}',
+            style: BodyText_14.copyWith(
+              color: White_FFF,
+            ),
           ),
-        ),
-        const SizedBox(
-          width: 1,
-        ),
-        const Image(
-          image: AssetImage('images/stone.png'),
-          width: 15,
-        ),
-        const SizedBox(
-          width: 16,
-        )
-      ],
-    );
+          const SizedBox(
+            width: 1,
+          ),
+          const Image(
+            image: AssetImage('images/stone.png'),
+            width: 15,
+          ),
+          const SizedBox(
+            width: 16,
+          )
+        ],
+      );
+    });
   }
 
   @override

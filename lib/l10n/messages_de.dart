@@ -1386,6 +1386,17 @@ class MessageLookup extends MessageLookupByLibrary {
     'Chat_ReplyMessageVoiceShow_PageText2': (howMany) => "[Audio $howMany’’]",
     'DailyPicks_ProfileBoostInvite_PageText1': () => "Willst du auch dabei sein?",
     'Like_RedeemedDiamondTitle_PageText1': (num,price) => "Glückwunsch! Sie haben $num @DIAMONDS@ im Wert von $price eingelöst.",
+    'Purchase_DiamondShopNavBar_AppBarTitle': () => "Diamantenladen",
+    'Purchase_DiamondShopBalance_PageText1': () => "Gleichgewicht",
+    'Purchase_DiamondShopMostPopularTip_ItemText': () => "Am beliebtesten",
+    'Purchase_DiamondShopMostPopular_PageText1': () => "Einmaliges Angebot",
+    'Purchase_DiamondShopVIPCard_PageText1': (num) => "Treten Sie VIP bei und erhalten Sie $num @DIAMONDS@",
+    'Purchase_DiamondShopVIPCard_PageText2': () => "kostenlos pro Monat",
+    'Purchase_DiamondShopVIPCardItem1_ItemText': () => "Optimieren Sie Ihre Suche",
+    'Purchase_DiamondShopVIPCardItem2_ItemText': () => "Sehen Sie, wer Ihnen gefallen hat",
+    'Purchase_DiamondShopVIPCardItem3_ItemText': () => "Nachricht direkt senden",
+    'Purchase_DiamondShopVIPCardJoin_Button': () => "Jetzt beitreten",
+    'Purchase_DiamondShopBestPromotion_ItemText': () => "Bester Wert",
   };
 
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
+import 'package:flutter_study/utils/localization_transition.dart';
 
 class Balance extends StatelessWidget {
   final int balance;
@@ -18,7 +19,7 @@ class Balance extends StatelessWidget {
             height: 15,
           ),
           Text(
-            'Balance',
+             LT.t?.Purchase_DiamondShopBalance_PageText1 ?? '',
             style: BodyText_16.copyWith(color: White_FFF),
           ),
           const SizedBox(
@@ -35,7 +36,6 @@ class Balance extends StatelessWidget {
 
   Row buildBalanceCountWidget() {
     return Row(
-      // mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

@@ -8784,4 +8784,70 @@ class ApplicationLocalizations {
     return Intl.message("Congratulations! You have redeemed $num @DIAMONDS@ worth $price.", name: "Like_RedeemedDiamondTitle_PageText1", args: [num,price]);
   }
 
+  // 编号 280398
+  // 顶部title
+  String get Purchase_DiamondShopNavBar_AppBarTitle {
+    return Intl.message("Diamond Shop", name: "Purchase_DiamondShopNavBar_AppBarTitle");
+  }
+
+  // 编号 280399
+  // balance title
+  String get Purchase_DiamondShopBalance_PageText1 {
+    return Intl.message("Balance", name: "Purchase_DiamondShopBalance_PageText1");
+  }
+
+  // 编号 280400
+  // 
+  String get Purchase_DiamondShopMostPopularTip_ItemText {
+    return Intl.message("Most popular", name: "Purchase_DiamondShopMostPopularTip_ItemText");
+  }
+
+  // 编号 280401
+  // most popular title
+  String get Purchase_DiamondShopMostPopular_PageText1 {
+    return Intl.message("One time offer", name: "Purchase_DiamondShopMostPopular_PageText1");
+  }
+
+  // 编号 280402
+  // vip卡片的富文本部分(vip和钻石数)
+  String Purchase_DiamondShopVIPCard_PageText1(num) {
+    return Intl.message("Join VIP and get $num @DIAMONDS@", name: "Purchase_DiamondShopVIPCard_PageText1", args: [num]);
+  }
+
+  // 编号 280403
+  // vip卡片的二级title
+  String get Purchase_DiamondShopVIPCard_PageText2 {
+    return Intl.message("for free per month", name: "Purchase_DiamondShopVIPCard_PageText2");
+  }
+
+  // 编号 280404
+  // vip卡片list1
+  String get Purchase_DiamondShopVIPCardItem1_ItemText {
+    return Intl.message("Fine Tune Your Search", name: "Purchase_DiamondShopVIPCardItem1_ItemText");
+  }
+
+  // 编号 280405
+  // vip卡片list2
+  String get Purchase_DiamondShopVIPCardItem2_ItemText {
+    return Intl.message("See Who Liked You", name: "Purchase_DiamondShopVIPCardItem2_ItemText");
+  }
+
+  // 编号 280406
+  // vip卡片list3
+  String get Purchase_DiamondShopVIPCardItem3_ItemText {
+    return Intl.message("Send message directly", name: "Purchase_DiamondShopVIPCardItem3_ItemText");
+  }
+
+  // 编号 280407
+  // vip卡片的加入按钮
+  String get Purchase_DiamondShopVIPCardJoin_Button {
+    return Intl.message("Join Now", name: "Purchase_DiamondShopVIPCardJoin_Button");
+  }
+
+  // 编号 280408
+  // 促销的best value
+  String get Purchase_DiamondShopBestPromotion_ItemText {
+    return Intl.message("Best value", name: "Purchase_DiamondShopBestPromotion_ItemText");
+  }
+
 }
