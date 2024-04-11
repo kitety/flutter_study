@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
-import 'package:get/get.dart';
 
 class HomeTopCard extends StatelessWidget {
   final int count;

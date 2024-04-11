@@ -5,7 +5,7 @@ import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
 
 class BuyStoneCard extends StatelessWidget {
   // 这个卡片的宽高比
-  static const cardHeight = 180.0;
+  static const cardHeight = 195.0;
   final Promotion promotion;
   const BuyStoneCard({Key? key, required this.promotion}) : super(key: key);
 
@@ -27,7 +27,7 @@ class BuyStoneCard extends StatelessWidget {
             children: [
               const Image(
                 image: AssetImage('images/stone.png'),
-                width: 38,
+                height: 33,
               ),
               Text(
                 '${promotion.count}',
@@ -52,6 +52,7 @@ class BuyStoneCard extends StatelessWidget {
               const SizedBox(height: 14),
               Container(
                 width: double.infinity,
+                height: 36,
                 padding: const EdgeInsets.only(
                   top: 8,
                   bottom: 8,
@@ -67,6 +68,9 @@ class BuyStoneCard extends StatelessWidget {
                         style: BodyText_16.copyWith(color: White_FFF)),
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
             ],
           ),
