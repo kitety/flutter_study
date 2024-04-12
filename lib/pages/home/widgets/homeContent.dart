@@ -117,6 +117,7 @@ class HomeContent extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                // 触发新的动画
                 print('Try Boost');
               },
               child: Text(

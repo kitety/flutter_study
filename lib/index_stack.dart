@@ -5,9 +5,9 @@ import 'package:flutter_study/pages/diamond/diamond.dart';
 import 'package:flutter_study/pages/food_list/food_list.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
-import 'package:flutter_study/pages/like/like.dart';
 import 'package:flutter_study/pages/message/Message.dart';
 import 'package:flutter_study/store/cart/food_list_controller.dart';
+import 'package:flutter_study/temp.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 
@@ -34,18 +34,18 @@ class CartBottomWidget extends StatelessWidget {
         final isShowBadge = cartItems.isNotEmpty;
         const iconWidget = Icon(Icons.cable);
         return isShowBadge
-            ? getBadgesWidget(counterText: counterText, child: iconWidget)
+            ? GetBadgesWidget(counterText: counterText, child: iconWidget)
             : iconWidget;
       },
     );
   }
 }
 
-class getBadgesWidget extends StatelessWidget {
+class GetBadgesWidget extends StatelessWidget {
   final String counterText;
 
   final Widget child;
-  const getBadgesWidget(
+  const GetBadgesWidget(
       {super.key, required this.counterText, required this.child});
 
   @override
@@ -82,14 +82,13 @@ class MessageBottomWidget extends StatelessWidget {
       final counterText = controller.chatCount.toString();
       final isShowBadge = controller.chatList.isNotEmpty;
       final badgeIcon =
-          getBadgesWidget(counterText: counterText, child: iconWidget);
+          GetBadgesWidget(counterText: counterText, child: iconWidget);
       return isShowBadge ? badgeIcon : iconWidget;
     });
   }
 }
 
 class MyStackPage extends StatefulWidget {
-
   const MyStackPage({super.key});
 
   @override
@@ -97,7 +96,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 6;
+  int _currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +130,10 @@ class _MyStackPageState extends State<MyStackPage> {
         index: _currentIndex,
         children: const [
           Home(),
-          Like(),
+          // Like(),
+          TweenSequencePage(),
           Message(),
-          ForYou(),
+          ForYouPage(),
           FoodListWidget(),
           Cart(),
           // OObx(),

@@ -70,7 +70,7 @@ class _DiamondState extends State<Diamond> {
               ),
               // 下面的两列卡片
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(25, 38, 25, 0),
+                padding: const EdgeInsets.fromLTRB(25, 38, 25, 40),
                 sliver: SliverGrid(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {

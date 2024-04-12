@@ -1,30 +1,14 @@
-const beforeTranslationDelay = 200;
-const beforeTranslationDuration =
-    Duration(milliseconds: beforeTranslationDelay);
+// 按钮放大时间
+const btnScaleBigTime=800;
+// 按钮缩小时间
+const btnScaleSmallTime=800;
+// 卡片缩放动画时间
+const cardScaleTime=1000;
+// 卡片滑动动画时间
+const cardSlideTime=1000;
+// heart动画时间
+const heartAnimationTime=1000;
 
-const bottomBtnShowDuration = Duration(milliseconds: bottomBtnShowTime);
-const bottomBtnShowTime = 300;
-
-const cardScaleDuration = Duration(milliseconds: cardScaleTime);
-const cardScaleTime = 400;
-
-const cardTranslateDuration = Duration(milliseconds: cardTranslateTime);
-const cardTranslateTime = 400;
-
-const heartScaleBigDuration =
-    Duration(milliseconds: heartScaleBigDurationTime); //放大
-const heartScaleBigDurationTime = 600; // 放大动画持续时间
-
-const heartScaleBigSmallWaitDuration =
-    Duration(milliseconds: heartScaleBigSmallWaitDurationTime); //放大到缩小的等待
-const heartScaleBigSmallWaitDurationTime = 500; // 放大到缩小的等待
-const heartScaleSmallDuration =
-    Duration(milliseconds: heartScaleSmallDurationTime); //缩小
-const heartScaleSmallDurationTime = 400; // 缩小动画持续时间
-const translationDuration = Duration(milliseconds: translationTime);
-
-const translationTime = 300;
-
-// 放大 等待 缩小
-final heartScaleBigSmallDuration =
-    heartScaleBigDuration + heartScaleBigSmallWaitDuration;
+const heartMainSize=240.0;// 最大的大小
+const heartSecondSize=200.0;// 最大之后缩小的尺寸
+const heartTopDistance=90.0;// 最大之后缩小的尺寸
