@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/pages/for_you/components/card_content/animate_bottom_btn.dart';
 import 'package:flutter_study/pages/for_you/components/card_content/animate_center_img.dart';
 import 'package:flutter_study/pages/for_you/components/card_content/constant.dart';
+import 'package:get/get.dart';
 
 class CardContent extends StatefulWidget {
   final int index;
@@ -15,33 +15,31 @@ class CardContent extends StatefulWidget {
 
 class _CardContentState extends State<CardContent>
     with TickerProviderStateMixin {
-  List<AnimationController> btnControllers = [];
-  List<Function> heartControllers = [];
-
-  late AnimationController _animationController;
-  late Animation<double> buttonAnimation;
-  late Animation<Offset> cardTranslateAnimation;
-
   //controller 部分
   late AnimationController btnBigController;
   late AnimationController btnSmallController;
   late AnimationController heartController;
   late AnimationController cardScaleController;
   late AnimationController cardSlideController;
+
   // animations
-  late final btnBigAnimation;
-  late final btnSmallAnimation;
-  late final heartAnimation;
-  late final cardScaleAnimation;
-  late final cardSlideAnimation;
-  final heartAnimations = [];
+  late Animation<double> btnBigAnimation;
+  late Animation<double> btnSmallAnimation;
+  late Animation<double> heartAnimation;
+  late Animation<double> cardScaleAnimation;
+  late Animation<Offset> cardSlideAnimation;
+  // heartAnimation
+  late Animation<double> heartOpacityAnimation;
+  late Animation<double> heartSizeAnimation;
+  late Animation<double> heartLeftAnimation;
+  late Animation<double> heartTopAnimation;
+
+  bool isBtnSmallPhase = false;
 
   @override
   Widget build(BuildContext context) {
-    // print('btnBigAnimation:${btnSmallAnimation.value}');
-    // print('cardTranslateAnimation:${cardTranslateAnimation.value}');
     return SlideTransition(
-      position: cardTranslateAnimation,
+      position: cardSlideAnimation,
       child: ScaleTransition(
         scale: cardScaleAnimation,
         child: Stack(
@@ -61,264 +59,275 @@ class _CardContentState extends State<CardContent>
     return Positioned(
       bottom: 20,
       right: 20,
-      child: GestureDetector(
-        onTap: handleBottomBtnTap,
-        child: Row(
-          children: [
-            AnimateBottomBtn(
-              controllers: btnControllers,
-              bigAnimation: btnBigAnimation,
-              smallAnimation: btnSmallAnimation,
-              child: const Image(image: chatImage, width: 50, height: 50),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            AnimateBottomBtn(
-              controllers: btnControllers,
-              bigAnimation: btnBigAnimation,
-              smallAnimation: btnSmallAnimation,
+      child: Row(
+        children: [
+          ScaleTransition(
+            scale: isBtnSmallPhase ? btnSmallAnimation : btnBigAnimation,
+            child: const Image(image: chatImage, width: 50, height: 50),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          GestureDetector(
+            onTap: handleBottomBtnTap,
+            child: ScaleTransition(
+              scale: isBtnSmallPhase ? btnSmallAnimation : btnBigAnimation,
               child: const Image(image: likeImage, width: 50, height: 50),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Opacity buildHeartWidget() {
-    // final heartOpacityValue = cardScaleAnimation.value;
-    const heartOpacityValue = 1.0;
-    return Opacity(
-      // duration: cardScaleDuration,
-      opacity: heartOpacityValue,
-      child: AnimateCenterImg(
-        controllers: heartControllers,
-        heartAnimations: heartAnimations,
-      ),
+  AnimateCenterImg buildHeartWidget() {
+    List<Animation<double>> heartAnimations = [
+      heartOpacityAnimation,
+      heartSizeAnimation,
+      heartLeftAnimation,
+      heartTopAnimation,
+    ];
+    return AnimateCenterImg(
+      animations: heartAnimations,
     );
   }
 
-  Container buildImgWidget() {
-    return Container(
-      width: double.infinity,
-      color: Colors.black12,
-      child: Image(
-        image: NetworkImage(
-            'https://picsum.photos/id/${widget.index + 1}/400/200'),
-        fit: BoxFit.contain,
-      ),
+  Image buildImgWidget() {
+    return const Image(
+      image: AssetImage('images/for-you.jpg'),
+      fit: BoxFit.contain,
     );
   }
 
   @override
   void dispose() {
-    print('销毁');
     super.dispose();
-    // 销毁所有的controller
-    for (var controller in btnControllers) {
-      controller.dispose();
-    }
-    // _scaleController.dispose();
-    // _slideController.dispose();
+    disposeAllController();
   }
-  // Timeline
-  // t(1).(2).(3).(delay)
 
-// 关掉页面 需要判断页面还存在
-
-// -1
-// ---3
-// -----5
-// ---------6
-// ---------------7
-// 0-10  8   7  6  8  9
-// value;
+  void disposeAllController() {
+    //销毁
+    btnBigController.dispose();
+    btnSmallController.dispose();
+    heartController.dispose();
+    cardScaleController.dispose();
+    cardSlideController.dispose();
+  }
 
   void handleBottomBtnTap() async {
-    // TweenSequence(items);
-    // 按钮消失动画
-    // for (var controller in btnControllers) {
-    //   controller.reverse();
-    // }
-    // await Future.delayed(bottomBtnShowDuration);
-    // 心形出现动画
-    // for (var controller in heartControllers) {
-    //   controller.call();
-    // }
-    // await Future.delayed(heartScaleBigSmallDuration);
-    // for (var controller in heartControllers) {
-    //   controller.call();
-    // }
-
-    //   late final btnBigAnimation;
-    // late final btnSmallAnimation;
-    // late final heartAnimation;
-    // late final cardScaleAnimation;
-    // late final cardSlideAnimation;
-    // final allAnimations = [
-    //   btnBigAnimation,
-    //   btnSmallAnimation,
-    //   heartAnimation,
-    //   cardScaleAnimation,
-    //   cardSlideAnimation
-    // ];
-    // final allControllers = [
-    //   btnBigController,
-    //   btnSmallController,
-    //   heartController,
-    //   cardScaleController,
-    //   cardSlideController
-    // ];
-    // num index = 0;
-    print('btn click');
-    // btnSmallController.forward();
-    // btnSmallController.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    // 开始心的动画
-    heartController.reset();
-    heartController.forward();
-    //   }
-    // });
+    final allControllers = [
+      btnSmallController,
+      heartController,
+      cardScaleController,
+      cardSlideController
+    ];
+    int index = 0;
+    btnSmallController.forward();
+    for (var controller in allControllers) {
+      controller.addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          index += 1;
+          if (index == allControllers.length) {
+            widget.handleNext();
+          } else {
+            final nextController = allControllers[index];
+            nextController.forward();
+          }
+        }
+      });
+    }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: allAnimationTime),
-    );
+  void initAllAnimations() {
+    double screenWidth = Get.mediaQuery.size.width;
+    double screenHeight = Get.mediaQuery.size.height;
     // 按钮变大
     btnBigController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: btnScaleBigTime),
     );
     // 按钮变小
     btnSmallController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: btnScaleSmallTime),
     );
     // heart动画
     heartController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 4000),
+      duration: const Duration(milliseconds: heartAnimationTime),
     );
     // 卡片Scale动画
     cardScaleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: cardScaleTime),
     );
-    // card slide 动画
-    // cardScaleAnimation = TweenSequence([
-    //   TweenSequenceItem(
-    //     tween: Tween(begin: 1.0, end: 0.0),
-    //     weight: bottomBtnShowTime.toDouble(),
-    //   ),
-    // ]).animate(_animationController);
+    cardSlideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: cardSlideTime),
+    );
 
     // 按钮放大的动画
     btnBigAnimation = TweenSequence([
       TweenSequenceItem(
         tween: Tween(begin: 0.0, end: 1.0),
-        weight: bottomBtnShowTime.toDouble(),
+        weight: 1,
       )
     ]).animate(btnBigController);
     // 按钮缩小的动画
     btnSmallAnimation = TweenSequence([
       TweenSequenceItem(
         tween: Tween(begin: 1.0, end: 0.0),
-        weight: bottomBtnShowTime.toDouble(),
+        weight: 1,
       )
     ]).animate(btnSmallController);
 
-    // 爱心
-    final heartOpacityAnimation = TweenSequence([
+    // 爱心透明度
+    heartOpacityAnimation = TweenSequence([
+      //放大
       TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 1),
+        tween: Tween(begin: 0.0, end: 1.0),
         weight: 1,
+      ),
+      // 等待
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.0),
+        weight: 1,
+      ),
+      // 缩小
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.0),
+        weight: 0.6,
+      ),
+    ]).animate(heartController);
+    // 爱心尺寸
+    heartSizeAnimation = TweenSequence([
+      // 放大
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: heartMainSize),
+        weight: 1,
+      ),
+      // 等待
+      TweenSequenceItem(
+        tween: Tween(begin: heartMainSize, end: heartMainSize),
+        weight: 1,
+      ),
+      // 缩小
+      TweenSequenceItem(
+        tween: Tween(begin: heartMainSize, end: heartSecondSize),
+        weight: 0.3,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: heartSecondSize, end: heartSecondSize),
+        weight: 0.3,
       )
     ]).animate(heartController);
-    final heartSizeAnimation = TweenSequence([
+    // 爱心左侧距离
+    heartLeftAnimation = TweenSequence([
+      // 放大
       TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 240),
+        tween:
+            Tween(begin: screenWidth, end: (screenWidth - heartMainSize) / 2),
         weight: 1,
+      ),
+      // 等待
+      TweenSequenceItem(
+        tween: Tween(
+            begin: (screenWidth - heartMainSize) / 2,
+            end: (screenWidth - heartMainSize) / 2),
+        weight: 1,
+      ),
+      // 缩小
+      TweenSequenceItem(
+        tween: Tween(
+            begin: (screenWidth - heartMainSize) / 2,
+            end: (screenWidth - 200) / 2),
+        weight: 0.3,
+      ),
+      // 缩小
+      TweenSequenceItem(
+        tween: Tween(
+            begin: (screenWidth - heartSecondSize) / 2,
+            end: (screenWidth - heartSecondSize) / 2),
+        weight: 0.3,
+      ),
+    ]).animate(heartController);
+    // 爱心顶部距离
+    heartTopAnimation = TweenSequence([
+      // 放大
+      TweenSequenceItem(
+        tween: Tween(begin: screenHeight / 2, end: heartTopDistance),
+        weight: 1,
+      ),
+      // 等待
+      TweenSequenceItem(
+        tween: Tween(begin: heartTopDistance, end: heartTopDistance),
+        weight: 1,
+      ),
+      // 缩小
+      TweenSequenceItem(
+        tween: Tween(begin: heartTopDistance, end: heartTopDistance),
+        weight: 0.6,
       )
     ]).animate(heartController);
-    // final Size screenSize = MediaQuery.of(context).size;
-    const double screenWidth = 300;
-    final heartLeftAnimation = TweenSequence([
-      TweenSequenceItem(
-        tween: Tween(begin: screenWidth, end: (screenWidth - 240) / 2),
-        weight: 1,
-      )
-    ]).animate(heartController);
-    heartAnimations.add(heartOpacityAnimation);
-    heartAnimations.add(heartSizeAnimation);
-    heartAnimations.add(heartLeftAnimation);
-
+    // //全部放入爱心的动画list
+    // heartAnimations.add(heartOpacityAnimation);
+    // heartAnimations.add(heartSizeAnimation);
+    // heartAnimations.add(heartLeftAnimation);
+    // heartAnimations.add(heartTopAnimation);
+    // 卡片动画的缩放
     cardScaleAnimation = TweenSequence(
       [
         // bottom的时间
         TweenSequenceItem(
-          tween: Tween(begin: 1.0, end: 1.0),
-          weight: bottomBtnShowTime.toDouble(),
-        ),
-        TweenSequenceItem(
-          tween: Tween(begin: 1.0, end: 1.0),
-          weight: 8 *
-              (heartScaleBigSmallWaitDurationTime + heartScaleBigDurationTime)
-                  .toDouble(),
-        ),
-        //真实的变换的时间
-        TweenSequenceItem(
           tween: Tween(begin: 1.0, end: 0.95),
-          weight: cardScaleTime.toDouble(),
-        ),
-        TweenSequenceItem(
-          tween: Tween(begin: 0.95, end: 0.95),
-          weight: beforeTranslationDelay.toDouble(),
+          weight: 1,
         ),
       ],
-    ).animate(_animationController);
-    cardTranslateAnimation = TweenSequence(
+    ).animate(cardScaleController);
+    // 卡片的slide
+    cardSlideAnimation = TweenSequence(
       [
-        TweenSequenceItem(
-          tween: Tween(
-            begin: Offset.zero,
-            end: Offset.zero,
-          ),
-          weight: 8 *
-              (heartScaleBigSmallWaitDurationTime + heartScaleBigDurationTime)
-                  .toDouble(),
-        ),
         TweenSequenceItem(
           tween: Tween(
             begin: Offset.zero,
             end: const Offset(0.0, -1.0),
           ),
-          weight: 4 *
-              (heartScaleBigSmallWaitDurationTime + heartScaleBigDurationTime)
-                  .toDouble(),
+          weight: 1,
         ),
       ],
-    ).animate(_animationController);
-    print('1111');
-    print(btnBigAnimation);
+    ).animate(cardSlideController);
+
     for (var animation in [
       btnBigAnimation,
       btnSmallAnimation,
       heartOpacityAnimation,
       heartSizeAnimation,
-      heartLeftAnimation
-      // heartAnimation,
-      // cardScaleAnimation,
-      // cardSlideAnimation
+      heartLeftAnimation,
+      heartTopAnimation,
+      cardScaleAnimation,
+      cardSlideAnimation
     ]) {
       animation.addListener(() {
         setState(() {});
       });
     }
+    startBtnScaleBigAnimation();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initAllAnimations();
+  }
+
+  void startBtnScaleBigAnimation() {
     btnBigController.forward();
+    btnBigController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          isBtnSmallPhase = true;
+        });
+      }
+    });
   }
 }

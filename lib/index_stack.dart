@@ -34,18 +34,18 @@ class CartBottomWidget extends StatelessWidget {
         final isShowBadge = cartItems.isNotEmpty;
         const iconWidget = Icon(Icons.cable);
         return isShowBadge
-            ? getBadgesWidget(counterText: counterText, child: iconWidget)
+            ? GetBadgesWidget(counterText: counterText, child: iconWidget)
             : iconWidget;
       },
     );
   }
 }
 
-class getBadgesWidget extends StatelessWidget {
+class GetBadgesWidget extends StatelessWidget {
   final String counterText;
 
   final Widget child;
-  const getBadgesWidget(
+  const GetBadgesWidget(
       {super.key, required this.counterText, required this.child});
 
   @override
@@ -82,7 +82,7 @@ class MessageBottomWidget extends StatelessWidget {
       final counterText = controller.chatCount.toString();
       final isShowBadge = controller.chatList.isNotEmpty;
       final badgeIcon =
-          getBadgesWidget(counterText: counterText, child: iconWidget);
+          GetBadgesWidget(counterText: counterText, child: iconWidget);
       return isShowBadge ? badgeIcon : iconWidget;
     });
   }
@@ -133,7 +133,7 @@ class _MyStackPageState extends State<MyStackPage> {
           // Like(),
           TweenSequencePage(),
           Message(),
-          ForYou(),
+          ForYouPage(),
           FoodListWidget(),
           Cart(),
           // OObx(),
