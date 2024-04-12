@@ -12,6 +12,7 @@ class BuyStoneCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(promotion.type);
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -26,8 +27,8 @@ class BuyStoneCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const Image(
-                image: AssetImage('images/stone.png'),
+              Image(
+                image: AssetImage('images/diamond_shop/${promotion.type}.png'),
                 height: 33,
               ),
               Text(

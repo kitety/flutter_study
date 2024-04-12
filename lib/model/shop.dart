@@ -1,9 +1,13 @@
+// To parse this JSON data, do
+//
+//     final pageantsUserInfo = pageantsUserInfoFromJson(jsonString);
+
 import 'dart:convert';
 
 DiamondShop diamondShopFromJson(String str) =>
     DiamondShop.fromJson(json.decode(str));
 
-String diamondShopToJson(DiamondShop data) => json.encode(data.toJson());
+String pageantsUserInfoToJson(DiamondShop data) => json.encode(data.toJson());
 
 class DiamondShop {
   final bool isVip;
@@ -40,6 +44,7 @@ class Promotion {
   final double money;
   final bool isShowTip;
   final String tipText;
+  final String type;
   final bool? isBestValue;
 
   Promotion({
@@ -48,6 +53,7 @@ class Promotion {
     required this.money,
     required this.isShowTip,
     required this.tipText,
+    required this.type,
     this.isBestValue,
   });
 
@@ -57,6 +63,7 @@ class Promotion {
         money: json["money"]?.toDouble(),
         isShowTip: json["isShowTip"],
         tipText: json["tipText"],
+        type: json["type"],
         isBestValue: json["isBestValue"],
       );
 
@@ -66,6 +73,7 @@ class Promotion {
         "money": money,
         "isShowTip": isShowTip,
         "tipText": tipText,
+        "type": type,
         "isBestValue": isBestValue,
       };
 }
