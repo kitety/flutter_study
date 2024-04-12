@@ -34,10 +34,11 @@ class _CardContentState extends State<CardContent>
   late final heartAnimation;
   late final cardScaleAnimation;
   late final cardSlideAnimation;
+  final heartAnimations = [];
 
   @override
   Widget build(BuildContext context) {
-    print('btnBigAnimation:${btnBigAnimation.value}');
+    // print('btnBigAnimation:${btnSmallAnimation.value}');
     // print('cardTranslateAnimation:${cardTranslateAnimation.value}');
     return SlideTransition(
       position: cardTranslateAnimation,
@@ -46,7 +47,7 @@ class _CardContentState extends State<CardContent>
         child: Stack(
           children: [
             buildImgWidget(),
-            buildBottomBtnsWidget(btnBigAnimation),
+            buildBottomBtnsWidget(),
             buildHeartWidget(),
           ],
         ),
@@ -54,7 +55,7 @@ class _CardContentState extends State<CardContent>
     );
   }
 
-  Positioned buildBottomBtnsWidget(Animation<double> animation) {
+  Positioned buildBottomBtnsWidget() {
     const likeImage = AssetImage('images/like_btn.png');
     const chatImage = AssetImage('images/chat.png');
     return Positioned(
@@ -91,7 +92,10 @@ class _CardContentState extends State<CardContent>
     return Opacity(
       // duration: cardScaleDuration,
       opacity: heartOpacityValue,
-      child: AnimateCenterImg(controllers: heartControllers),
+      child: AnimateCenterImg(
+        controllers: heartControllers,
+        heartAnimations: heartAnimations,
+      ),
     );
   }
 
@@ -152,22 +156,30 @@ class _CardContentState extends State<CardContent>
     // late final heartAnimation;
     // late final cardScaleAnimation;
     // late final cardSlideAnimation;
-    final allAnimations = [
-      btnBigAnimation,
-      btnSmallAnimation,
-      heartAnimation,
-      cardScaleAnimation,
-      cardSlideAnimation
-    ];
-    final allControllers = [
-      btnBigController,
-      btnSmallController,
-      heartController,
-      cardScaleController,
-      cardSlideController
-    ];
-    num index = 0;
-    btnSmallController.forward();
+    // final allAnimations = [
+    //   btnBigAnimation,
+    //   btnSmallAnimation,
+    //   heartAnimation,
+    //   cardScaleAnimation,
+    //   cardSlideAnimation
+    // ];
+    // final allControllers = [
+    //   btnBigController,
+    //   btnSmallController,
+    //   heartController,
+    //   cardScaleController,
+    //   cardSlideController
+    // ];
+    // num index = 0;
+    print('btn click');
+    // btnSmallController.forward();
+    // btnSmallController.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    // 开始心的动画
+    heartController.reset();
+    heartController.forward();
+    //   }
+    // });
   }
 
   @override
@@ -190,7 +202,7 @@ class _CardContentState extends State<CardContent>
     // heart动画
     heartController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 4000),
     );
     // 卡片Scale动画
     cardScaleController = AnimationController(
@@ -212,12 +224,38 @@ class _CardContentState extends State<CardContent>
         weight: bottomBtnShowTime.toDouble(),
       )
     ]).animate(btnBigController);
+    // 按钮缩小的动画
     btnSmallAnimation = TweenSequence([
       TweenSequenceItem(
         tween: Tween(begin: 1.0, end: 0.0),
         weight: bottomBtnShowTime.toDouble(),
       )
     ]).animate(btnSmallController);
+
+    // 爱心
+    final heartOpacityAnimation = TweenSequence([
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 1),
+        weight: 1,
+      )
+    ]).animate(heartController);
+    final heartSizeAnimation = TweenSequence([
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 240),
+        weight: 1,
+      )
+    ]).animate(heartController);
+    // final Size screenSize = MediaQuery.of(context).size;
+    const double screenWidth = 300;
+    final heartLeftAnimation = TweenSequence([
+      TweenSequenceItem(
+        tween: Tween(begin: screenWidth, end: (screenWidth - 240) / 2),
+        weight: 1,
+      )
+    ]).animate(heartController);
+    heartAnimations.add(heartOpacityAnimation);
+    heartAnimations.add(heartSizeAnimation);
+    heartAnimations.add(heartLeftAnimation);
 
     cardScaleAnimation = TweenSequence(
       [
@@ -270,6 +308,9 @@ class _CardContentState extends State<CardContent>
     for (var animation in [
       btnBigAnimation,
       btnSmallAnimation,
+      heartOpacityAnimation,
+      heartSizeAnimation,
+      heartLeftAnimation
       // heartAnimation,
       // cardScaleAnimation,
       // cardSlideAnimation
