@@ -85,26 +85,59 @@ class JoinVipCardWidget extends StatelessWidget {
     );
   }
 
+  Container getAdvantagesListItemWidget(String content, String imgSrc) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 9),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Color(0xFFF5CC6D.toInt()),
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Column(
+        children: [
+          Image(
+            image: AssetImage(imgSrc),
+            height: 42,
+          ),
+          Text(
+            content,
+            style: BodySentence_14,
+            softWrap: true,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
   IntrinsicHeight getAdvantagesListWidget() {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // 应该用flex 控制比例？
           Expanded(
+            flex: 10,
             child: getAdvantagesListItemWidget(
               LT.t?.Purchase_DiamondShopVIPCardItem1_ItemText ?? '',
               vipCardLIstItemImg1,
             ),
           ),
-          const SizedBox(width: 5),
+          // const SizedBox(width: 5),
+          Expanded(flex: 1, child: Container()),
           Expanded(
+            flex: 10,
             child: getAdvantagesListItemWidget(
               LT.t?.Purchase_DiamondShopVIPCardItem2_ItemText ?? '',
               vipCardLIstItemImg2,
             ),
           ),
-          const SizedBox(width: 5),
+          // const SizedBox(width: 5),
+          Expanded(flex: 1, child: Container()),
           Expanded(
+            flex: 10,
             child: getAdvantagesListItemWidget(
               LT.t?.Purchase_DiamondShopVIPCardItem3_ItemText ?? '',
               vipCardLIstItemImg3,
@@ -156,32 +189,5 @@ class JoinVipCardWidget extends StatelessWidget {
         ),
       );
     });
-  }
-
-  Container getAdvantagesListItemWidget(String content, String imgSrc) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 9),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Color(0xFFF5CC6D.toInt()),
-          width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Column(
-        children: [
-          Image(
-            image: AssetImage(imgSrc),
-            height: 42,
-          ),
-          Text(
-            content,
-            style: BodySentence_14,
-            softWrap: true,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
   }
 }

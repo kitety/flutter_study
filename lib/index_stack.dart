@@ -2,7 +2,6 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_study/pages/cart/cart.dart';
 import 'package:flutter_study/pages/diamond_shop/diamond_shop.dart';
-import 'package:flutter_study/pages/diamond_shop_layout_test/diamond_shop.dart';
 import 'package:flutter_study/pages/food_list/food_list.dart';
 import 'package:flutter_study/pages/for_you/index.dart';
 import 'package:flutter_study/pages/home/home.dart';
@@ -97,7 +96,7 @@ class MyStackPage extends StatefulWidget {
 }
 
 class _MyStackPageState extends State<MyStackPage> {
-  int _currentIndex = 7;
+  int _currentIndex = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +117,6 @@ class _MyStackPageState extends State<MyStackPage> {
           // createItem("TMP", const Icon(Icons.person)),
           // createItem("TMP", const Icon(Icons.person)),
           createItem("Diamond", const Icon(Icons.diamond)),
-          createItem("lay", const Icon(Icons.diamond)),
         ],
         onTap: (index) {
           setState(() {
@@ -141,7 +139,6 @@ class _MyStackPageState extends State<MyStackPage> {
           // OObx(),
           // OObx2()
           DiamondShopPage(),
-          DiamondShopLayoutTestPage(),
         ],
       ),
     );
