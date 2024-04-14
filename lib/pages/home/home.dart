@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(context),
-      body:  HomeContent(),
+      body: const HomeContent(),
     );
   }
 
@@ -29,12 +29,9 @@ class Home extends StatelessWidget {
         width: 30,
         height: 30,
         padding: const EdgeInsets.only(left: 16),
-        child: CircleAvatar(
-          child: Image.asset(
-            'images/avatar.png', // Path to your image
-            width: 30.0,
-            height: 30.0,
-          ),
+        child: const CircleAvatar(
+          radius: 50,
+          backgroundImage: AssetImage("images/avatar.png"),
         ),
       ),
       actions: [
