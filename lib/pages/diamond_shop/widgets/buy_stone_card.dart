@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/model/shop.dart';
-import 'package:flutter_study/pages/diamond/componets/gradient_btn.dart';
+import 'package:flutter_study/pages/diamond_shop/componets/gradient_btn.dart';
 import 'package:flutter_study/utils/currency.dart';
 
-class BuyStoneCard extends StatelessWidget {
+const cardImgTypeSrcMap = {
+  "box": "images/diamond_shop/box.png",
+  "two": "images/diamond_shop/two.png",
+  "single": singleStoneImg
+};
+const singleStoneImg = "images/diamond_shop/single.png";
+
+class BuyStoneCardWidget extends StatelessWidget {
   // 这个卡片的宽高比
   static const cardHeight = 195.0;
   final Promotion promotion;
-  const BuyStoneCard({Key? key, required this.promotion}) : super(key: key);
+  const BuyStoneCardWidget({Key? key, required this.promotion})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(promotion.type);
+    // print(promotion.type);
+    final imgSrc = cardImgTypeSrcMap[promotion.type] ?? singleStoneImg;
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -28,7 +37,7 @@ class BuyStoneCard extends StatelessWidget {
           child: Column(
             children: [
               Image(
-                image: AssetImage('images/diamond_shop/${promotion.type}.png'),
+                image: AssetImage(imgSrc),
                 height: 33,
               ),
               Text(

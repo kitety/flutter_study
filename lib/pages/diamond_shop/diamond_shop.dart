@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
-import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
-import 'package:flutter_study/pages/diamond/widgets/balance.dart';
-import 'package:flutter_study/pages/diamond/widgets/buy_stone_card.dart';
-import 'package:flutter_study/pages/diamond/widgets/join_vip_card.dart';
-import 'package:flutter_study/pages/diamond/widgets/popular_card.dart';
-import 'package:flutter_study/store/shop/shop.dart';
+import 'package:flutter_study/pages/diamond_shop/common/btn_gradient.dart';
+import 'package:flutter_study/pages/diamond_shop/widgets/balance.dart';
+import 'package:flutter_study/pages/diamond_shop/widgets/buy_stone_card.dart';
+import 'package:flutter_study/pages/diamond_shop/widgets/join_vip_card.dart';
+import 'package:flutter_study/pages/diamond_shop/widgets/popular_card.dart';
+import 'package:flutter_study/store/diamond_shop/diamond_shop.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 import 'package:throttling/throttling.dart';
 
-class Diamond extends StatefulWidget {
-  const Diamond({Key? key}) : super(key: key);
+class DiamondShopPage extends StatefulWidget {
+  const DiamondShopPage({Key? key}) : super(key: key);
 
   @override
-  State<Diamond> createState() => _DiamondState();
+  State<DiamondShopPage> createState() => _DiamondShopPageState();
 }
 
-class _DiamondState extends State<Diamond> {
-  num showActionScrollHeight = 116; // 滚动多远需要展示右侧的action
+class _DiamondShopPageState extends State<DiamondShopPage> {
   bool isShowAction = false;
   final ScrollController _scrollController = ScrollController();
   final throttle = Throttling<void>(duration: const Duration(milliseconds: 60));
@@ -28,11 +27,11 @@ class _DiamondState extends State<Diamond> {
     return Scaffold(
         appBar: buildAppBar(),
         // 后面需要替换为滚动组件
-        body: GetBuilder<ShopController>(builder: (controller) {
-          if (controller.diamondShop.stoneBalance.isLowerThan(0)) {
+        body: GetBuilder<DiamondShopController>(builder: (controller) {
+          if (controller.isLoading) {
             return Container();
           }
-          Widget vipPartContent = controller.diamondShop.isVip
+          Widget vipPartContent = controller.diamondShop?.isVip ?? false
               ? Container()
               : const Column(
                   children: [
@@ -40,7 +39,7 @@ class _DiamondState extends State<Diamond> {
                       height: 37,
                     ),
                     // join vip
-                    JoinVipCard(),
+                    JoinVipCardWidget(),
                   ],
                 );
           return CustomScrollView(
@@ -50,7 +49,9 @@ class _DiamondState extends State<Diamond> {
               SliverPadding(
                 padding: const EdgeInsets.all(0),
                 sliver: SliverToBoxAdapter(
-                  child: Balance(balance: controller.diamondShop.stoneBalance),
+                  child: BalanceWidget(
+                    balance: controller.diamondShop?.stoneBalance ?? 0,
+                  ),
                 ),
               ),
               // 最受欢迎的
@@ -61,7 +62,7 @@ class _DiamondState extends State<Diamond> {
                     children: [
                       // most popular
                       PopularCard(
-                        promotion: controller.diamondShop.mostPopular,
+                        promotion: controller.diamondShop!.mostPopular,
                       ),
                       vipPartContent,
                     ],
@@ -75,15 +76,15 @@ class _DiamondState extends State<Diamond> {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final promotion =
-                          controller.diamondShop.promotions[index];
-                      return BuyStoneCard(promotion: promotion);
+                          controller.diamondShop!.promotions[index];
+                      return BuyStoneCardWidget(promotion: promotion);
                     },
-                    childCount: controller.diamondShop.promotions.length,
+                    childCount: controller.diamondShop!.promotions.length,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 15,
-                    mainAxisExtent: BuyStoneCard.cardHeight,
+                    mainAxisExtent: BuyStoneCardWidget.cardHeight,
                     mainAxisSpacing: 15,
                   ),
                 ),
@@ -127,12 +128,12 @@ class _DiamondState extends State<Diamond> {
   }
 
   Widget getActionContent() {
-    return GetBuilder<ShopController>(builder: (controller) {
+    return GetBuilder<DiamondShopController>(builder: (controller) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            '${controller.diamondShop.stoneBalance}',
+            '${controller.diamondShop?.stoneBalance}',
             style: BodyText_14.copyWith(
               color: White_FFF,
             ),
@@ -163,7 +164,7 @@ class _DiamondState extends State<Diamond> {
       double currentScrollOffset = _scrollController.offset;
       print('$currentScrollOffset');
       setState(() {
-        isShowAction = currentScrollOffset >= showActionScrollHeight;
+        isShowAction = currentScrollOffset >= BalanceWidget.containerHeight;
       });
     });
   }

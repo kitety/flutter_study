@@ -1,52 +1,34 @@
-import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
-import 'package:flutter_study/common/wording_pattern/wording_image_pattern.dart';
 import 'package:flutter_study/model/shop.dart';
-import 'package:flutter_study/pages/diamond/componets/gradient_btn.dart';
+import 'package:flutter_study/pages/diamond_shop/componets/gradient_btn.dart';
 import 'package:flutter_study/utils/currency.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 
-class getMostPopularStone extends StatelessWidget {
-  final String stoneCountStr;
-
+class PopularCardWidget extends StatelessWidget {
   final int countValue;
-  const getMostPopularStone({
+  const PopularCardWidget({
     super.key,
-    required this.stoneCountStr,
     required this.countValue,
   });
 
   @override
   Widget build(BuildContext context) {
-    return EasyRichText(
-      stoneCountStr,
-      defaultStyle: BodyText_18,
-      textAlign: TextAlign.center,
-      patternList: [
-        EasyRichTextPattern(
-          targetString: WordingImagePattern.diamonds,
-          style: BodyText_16,
-          matchBuilder: (c, s) {
-            return WidgetSpan(
-              alignment: PlaceholderAlignment.middle,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 2),
-                child: Image.asset(
-                  WordingImagePattern.getImagePath(
-                      WordingImagePattern.diamonds),
-                  height: 20,
-                ),
-              ),
-            );
-          },
-        ),
-        EasyRichTextPattern(
-          targetString: countValue.toString(),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          '$countValue',
           style: TitleText_16.copyWith(
             fontSize: 24,
           ),
         ),
+        const Image(
+          image: AssetImage(
+            'images/diamond_shop/stone_icon.png',
+          ),
+          height: 20,
+        )
       ],
     );
   }
@@ -59,7 +41,6 @@ class PopularCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final countValue = promotion.count;
-    final String stoneCountStr = '$countValue @DIAMONDS@';
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -78,8 +59,7 @@ class PopularCard extends StatelessWidget {
                 style: TitleText_18,
               ),
               const SizedBox(height: 5),
-              getMostPopularStone(
-                stoneCountStr: stoneCountStr,
+              PopularCardWidget(
                 countValue: countValue,
               ),
               const SizedBox(height: 12),

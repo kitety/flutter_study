@@ -1397,6 +1397,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'Purchase_DiamondShopVIPCardItem3_ItemText': () => "Nachricht direkt senden",
     'Purchase_DiamondShopVIPCardJoin_Button': () => "Jetzt beitreten",
     'Purchase_DiamondShopBestPromotion_ItemText': () => "Bester Wert",
+    'Purchase_DiamondShopVIPCardVIPSymbol_PageText1': () => "VIP",
   };
 
 }
