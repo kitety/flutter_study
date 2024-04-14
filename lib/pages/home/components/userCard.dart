@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/home/widgets/homeContent.dart';
-import 'package:flutter_study/utils/random_num.dart';
 import 'package:flutter_study/utils/unit.dart';
 
 class UserCard extends StatelessWidget {
   final bool isWhite;
-  final int count;
   final void Function(User user) handleHiBtnClick;
   final User user;
 
   const UserCard({
     Key? key,
     this.isWhite = false,
-    required this.count,
     required this.user,
     required this.handleHiBtnClick,
   }) : super(key: key);
@@ -24,7 +21,7 @@ class UserCard extends StatelessWidget {
     const avatarImage = AssetImage('images/avatar.png');
     const likeImage = AssetImage('images/like_btn.png');
     const chatImage = AssetImage('images/chat.png');
-    final distance = formatDistance(genRandomNum(5, 20));
+    final distance = formatDistance(0.24);
 
     return Column(
       children: [

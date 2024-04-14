@@ -21,6 +21,7 @@ class ApiService {
   }
 
   static Future<List<User>> getUsers() async {
+    print('getUsers');
     return List.generate(
       30,
       (index) => User(

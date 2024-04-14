@@ -57,7 +57,6 @@ class HomeContent extends StatelessWidget {
                     final user = controller.users[index];
                     return UserCard(
                       user: user,
-                      count: stoneCount,
                       handleHiBtnClick: (user) {
                         // 应该用返回值
                         handleImageTap(
@@ -83,14 +82,14 @@ class HomeContent extends StatelessWidget {
   HomeTopCard getTopCard(
       List<User> list, int stoneCount, BuildContext context) {
     return HomeTopCard(
-      users: list.sublist(0, 2),
-      count: stoneCount,
-      handleHiBtnClick: (user) {
-        handleImageTap(context, stoneCount, (String msg, int count) {
-          handleSendMessage(msg, count, user);
-        });
-      },
-    );
+        users: list.sublist(0, HomeContent.crossAxisCount),
+        count: stoneCount,
+        handleHiBtnClick: (user) {
+          handleImageTap(context, stoneCount, (String msg, int count) {
+            handleSendMessage(msg, count, user);
+          });
+        },
+        padding: containerPadding);
   }
 
   void handleSendMessage(String msg, int count, User user) {
