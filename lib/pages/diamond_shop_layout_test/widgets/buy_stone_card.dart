@@ -13,7 +13,7 @@ const singleStoneImg = "images/diamond_shop/single.png";
 
 class BuyStoneCardWidget extends StatelessWidget {
   // 这个卡片的宽高比
-  static const cardHeight = 265.0;
+  static const cardHeight = 195.0;
   final Promotion promotion;
   const BuyStoneCardWidget({Key? key, required this.promotion})
       : super(key: key);
@@ -61,8 +61,6 @@ class BuyStoneCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              // 自动占据剩余区域
-              Expanded(child: Container()),
               GradientBtn(
                 height: 36.0,
                 text: formatPrice(promotion.money),
