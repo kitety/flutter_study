@@ -3,6 +3,7 @@ import 'package:flutter_study/common/constant.dart';
 import 'package:flutter_study/model/user.dart';
 import 'package:flutter_study/pages/home/common/animation.dart';
 import 'package:flutter_study/pages/home/components/userCard.dart';
+import 'package:flutter_study/pages/home/widgets/homeContent.dart';
 import 'package:flutter_study/utils/localization_transition.dart';
 import 'package:get/get.dart';
 
@@ -44,7 +45,10 @@ class _HomeTopCardState extends State<HomeTopCard>
     int count = widget.users.length;
     double screenWidth = Get.mediaQuery.size.width;
     double contentWidth = screenWidth - widget.padding * 2;
-    double contentHeight = contentWidth;
+    // 75：headTopCard的顶部padding 11，24 图片和间距，还有50是文字的高度
+    double contentHeight = contentWidth / count / HomeContent.cardWHRatio +
+        75 +
+        HomeTopCard.tryBoostContainerHeight;
     double slideCardInitTop = contentHeight - HomeTopCard.slideAnimationHeight;
     print(screenWidth);
     final mainTop2UserContent = Container(
