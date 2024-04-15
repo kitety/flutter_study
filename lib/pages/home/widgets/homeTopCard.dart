@@ -43,12 +43,103 @@ class _HomeTopCardState extends State<HomeTopCard>
   late Animation<double> cardTranslateAnimation;
   late Animation<num> scaleAnimation;
 
+  void animationInitial() {
+    _controller = AnimationController(
+      duration: Duration(
+        milliseconds: textAndNavAllTime.toInt(),
+      ),
+      vsync: this,
+    );
+    _scaleController = AnimationController(
+      duration: Duration(
+        milliseconds: avatarAnimationAllTime.toInt(),
+      ),
+      vsync: this,
+    );
+    scaleAnimation = TweenSequence(
+      [
+        TweenSequenceItem(
+            tween: Tween(begin: 1.0 / HomeTopCard.avatarScaleValue, end: 1.0),
+            weight: avatarAnimationTime),
+        TweenSequenceItem(
+            tween: Tween(begin: 1.0, end: 1.0), weight: avatarAnimationGapTime),
+        TweenSequenceItem(
+            tween: Tween(begin: 1.0, end: 1.0 / HomeTopCard.avatarScaleValue),
+            weight: avatarAnimationTime),
+        TweenSequenceItem(
+            tween: Tween(
+                begin: 1.0 / HomeTopCard.avatarScaleValue,
+                end: 1.0 / HomeTopCard.avatarScaleValue),
+            weight: avatarAnimationGapTime),
+      ],
+    ).animate(_scaleController);
+
+    textOpacityAnimation = TweenSequence([
+      // 文本消失
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0 / HomeTopCard.avatarScaleValue, end: 0.0),
+        weight: textDisappearTime,
+      ),
+      // 卡片滑下来
+      // 卡片保持状态
+      // 卡片滑上去
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 0.0),
+        weight: barSlideDownTime + barSlideUpTime + barWaitTime,
+      ),
+      // 文本出现
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 1.0),
+        weight: textShowTime,
+      )
+    ]).animate(_controller);
+    cardTranslateAnimation = TweenSequence([
+      // 文本消失
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 0.0),
+        weight: textDisappearTime,
+      ),
+      // 卡片滑下来
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 1.0),
+        weight: barSlideDownTime,
+      ),
+      // 卡片保持状态
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.0),
+        weight: barWaitTime,
+      ),
+      // 卡片滑上去
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 0.0),
+        weight: barSlideUpTime,
+      ),
+      // 文本出现
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: 0.0),
+        weight: textShowTime,
+      ),
+    ]).animate(_controller);
+    //循环一下
+    for (var animation in [
+      textOpacityAnimation,
+      cardTranslateAnimation,
+      scaleAnimation
+    ]) {
+      animation.addListener(() {
+        setState(() {});
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isNoUser = widget.users.isEmpty;
     if (isNoUser) {
       return Container();
     }
+
+    // 这个部分还需要抽一下
     int count = widget.users.length;
     double screenWidth = Get.mediaQuery.size.width;
     // 内容的宽度：屏幕宽度 - padding*2 - 间距*(count-1)
@@ -259,91 +350,6 @@ class _HomeTopCardState extends State<HomeTopCard>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: Duration(
-        milliseconds: textAndNavAllTime.toInt(),
-      ),
-      vsync: this,
-    );
-    _scaleController = AnimationController(
-      duration: Duration(
-        milliseconds: avatarAnimationAllTime.toInt(),
-      ),
-      vsync: this,
-    );
-    scaleAnimation = TweenSequence(
-      [
-        TweenSequenceItem(
-            tween: Tween(begin: 1.0 / HomeTopCard.avatarScaleValue, end: 1.0),
-            weight: avatarAnimationTime),
-        TweenSequenceItem(
-            tween: Tween(begin: 1.0, end: 1.0), weight: avatarAnimationGapTime),
-        TweenSequenceItem(
-            tween: Tween(begin: 1.0, end: 1.0 / HomeTopCard.avatarScaleValue),
-            weight: avatarAnimationTime),
-        TweenSequenceItem(
-            tween: Tween(
-                begin: 1.0 / HomeTopCard.avatarScaleValue,
-                end: 1.0 / HomeTopCard.avatarScaleValue),
-            weight: avatarAnimationGapTime),
-      ],
-    ).animate(_scaleController);
-
-    textOpacityAnimation = TweenSequence([
-      // 文本消失
-      TweenSequenceItem(
-        tween: Tween(begin: 1.0 / HomeTopCard.avatarScaleValue, end: 0.0),
-        weight: textDisappearTime,
-      ),
-      // 卡片滑下来
-      // 卡片保持状态
-      // 卡片滑上去
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 0.0),
-        weight: barSlideDownTime + barSlideUpTime + barWaitTime,
-      ),
-      // 文本出现
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 1.0),
-        weight: textShowTime,
-      )
-    ]).animate(_controller);
-    cardTranslateAnimation = TweenSequence([
-      // 文本消失
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 0.0),
-        weight: textDisappearTime,
-      ),
-      // 卡片滑下来
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 1.0),
-        weight: barSlideDownTime,
-      ),
-      // 卡片保持状态
-      TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 1.0),
-        weight: barWaitTime,
-      ),
-      // 卡片滑上去
-      TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 0.0),
-        weight: barSlideUpTime,
-      ),
-      // 文本出现
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 0.0),
-        weight: textShowTime,
-      ),
-    ]).animate(_controller);
-    //循环一下
-    for (var animation in [
-      textOpacityAnimation,
-      cardTranslateAnimation,
-      scaleAnimation
-    ]) {
-      animation.addListener(() {
-        setState(() {});
-      });
-    }
+    animationInitial();
   }
 }

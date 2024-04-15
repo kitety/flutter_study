@@ -29,7 +29,10 @@ class _DiamondShopPageState extends State<DiamondShopPage> {
         // 后面需要替换为滚动组件
         body: GetBuilder<DiamondShopController>(builder: (controller) {
           if (controller.isLoading) {
-            return Container();
+            return const Text('Loading');
+          }
+          if (controller.isFailed) {
+            return const Text('Init Data Error');
           }
           Widget vipPartContent = controller.diamondShop?.isVip ?? false
               ? Container()

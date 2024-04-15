@@ -13,7 +13,7 @@ const singleStoneImg = "images/diamond_shop/single.png";
 
 class BuyStoneCardWidget extends StatelessWidget {
   // 这个卡片的宽高比
-  static const cardHeight = 395.0;
+  static const cardHeight = 195.0;// 395.0;
   final Promotion promotion;
   const BuyStoneCardWidget({Key? key, required this.promotion})
       : super(key: key);
