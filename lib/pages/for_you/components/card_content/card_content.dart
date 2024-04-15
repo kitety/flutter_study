@@ -96,6 +96,7 @@ class _CardContentState extends State<CardContent>
     return const Image(
       image: AssetImage('images/for-you.jpg'),
       fit: BoxFit.contain,
+      width: double.infinity,
     );
   }
 
