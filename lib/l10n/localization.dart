@@ -8850,4 +8850,10 @@ class ApplicationLocalizations {
     return Intl.message("Best value", name: "Purchase_DiamondShopBestPromotion_ItemText");
   }
 
+  // 编号 280481
+  // vip卡片的VIP文本标识
+  String get Purchase_DiamondShopVIPCardVIPSymbol_PageText1 {
+    return Intl.message("VIP", name: "Purchase_DiamondShopVIPCardVIPSymbol_PageText1");
+  }
+
 }

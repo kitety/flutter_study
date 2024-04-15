@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/constant.dart';
-import 'package:flutter_study/pages/diamond/common/btn_gradient.dart';
+import 'package:flutter_study/pages/diamond_shop/common/btn_gradient.dart';
 
 class GradientBtn extends StatelessWidget {
   final String text;
@@ -13,7 +13,6 @@ class GradientBtn extends StatelessWidget {
     required this.height,
     this.textSize = 16,
     this.px = 0,
-    // width = double.infinity,
   }) : super(key: key);
 
   @override
