@@ -11,6 +11,13 @@ class HomeTopCard extends StatefulWidget {
   static const double slideAnimationHeight = 100.0;
   static const double tryBoostContainerHeight = 43.0;
   static const double avatarScaleValue = 1.2;
+  static const double topCardXPadding = 8.0;
+  static const double topCardBottomPadding = 9.0;
+  static const double topCardXGap = 7;
+  // padding 相关
+  static const double topPadding = 11;
+  static const double topImgHeight = 15;
+  static const double topImgDownGap = 9;
   final int count;
   final double padding;
 
@@ -44,14 +51,20 @@ class _HomeTopCardState extends State<HomeTopCard>
     }
     int count = widget.users.length;
     double screenWidth = Get.mediaQuery.size.width;
-    double contentWidth = screenWidth - widget.padding * 2;
-    // 75：headTopCard的顶部padding 11，24 图片和间距，还有50是文字的高度
+    // 内容的宽度：屏幕宽度 - padding*2 - 间距*(count-1)
+    double contentWidth = screenWidth -
+        widget.padding * 2 -
+        HomeTopCard.topCardXPadding * 2 -
+        HomeTopCard.topCardXGap * (count - 1);
+    // 根据比例计算图片高度+padding+上面（图片+间距）+下面（文本的高度）
     double contentHeight = contentWidth / count / HomeContent.cardWHRatio +
-        75 +
-        HomeTopCard.tryBoostContainerHeight;
-    double slideCardInitTop = contentHeight - HomeTopCard.slideAnimationHeight;
-    print(screenWidth);
-    final mainTop2UserContent = Container(
+        (UserCard.bottomContainerHeight +
+            HomeTopCard.topImgDownGap +
+            HomeTopCard.topImgHeight +
+            HomeTopCard.topPadding) +
+        HomeTopCard.tryBoostContainerHeight +
+        HomeTopCard.topCardBottomPadding;
+    final mainTopUsersContent = Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         image: const DecorationImage(
@@ -59,16 +72,21 @@ class _HomeTopCardState extends State<HomeTopCard>
           fit: BoxFit.cover, // 可以根据需要调整图片的填充方式
         ),
       ),
-      padding: const EdgeInsets.fromLTRB(8, 11, 8, 9),
+      padding: const EdgeInsets.fromLTRB(
+        HomeTopCard.topCardXPadding,
+        HomeTopCard.topPadding,
+        HomeTopCard.topCardXPadding,
+        HomeTopCard.topCardBottomPadding,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Image(
             image: AssetImage('images/boost.png'),
-            height: 15,
+            height: HomeTopCard.topImgHeight,
           ),
           const SizedBox(
-            height: 9,
+            height: HomeTopCard.topImgDownGap,
           ),
           Row(
             children: [
@@ -79,7 +97,7 @@ class _HomeTopCardState extends State<HomeTopCard>
                   handleHiBtnClick: widget.handleHiBtnClick,
                 ),
               ),
-              const SizedBox(width: 7.0),
+              const SizedBox(width: HomeTopCard.topCardXGap),
               Expanded(
                 child: UserCard(
                   user: widget.users[1],
@@ -98,7 +116,7 @@ class _HomeTopCardState extends State<HomeTopCard>
           children: [
             // 需要计算高度
             SizedBox(
-              height: contentWidth,
+              height: contentHeight,
             ),
             // mainTop2UserContent,
             Positioned(
@@ -159,7 +177,7 @@ class _HomeTopCardState extends State<HomeTopCard>
                 ),
               ),
             ),
-            mainTop2UserContent,
+            mainTopUsersContent,
           ],
         ),
       ],
@@ -255,22 +273,24 @@ class _HomeTopCardState extends State<HomeTopCard>
     scaleAnimation = TweenSequence(
       [
         TweenSequenceItem(
-            tween: Tween(begin: 1.0 / 1.2, end: 1.0),
+            tween: Tween(begin: 1.0 / HomeTopCard.avatarScaleValue, end: 1.0),
             weight: avatarAnimationTime),
         TweenSequenceItem(
             tween: Tween(begin: 1.0, end: 1.0), weight: avatarAnimationGapTime),
         TweenSequenceItem(
-            tween: Tween(begin: 1.0, end: 1.0 / 1.2),
+            tween: Tween(begin: 1.0, end: 1.0 / HomeTopCard.avatarScaleValue),
             weight: avatarAnimationTime),
         TweenSequenceItem(
-            tween: Tween(begin: 1.0 / 1.2, end: 1.0 / 1.2),
+            tween: Tween(
+                begin: 1.0 / HomeTopCard.avatarScaleValue,
+                end: 1.0 / HomeTopCard.avatarScaleValue),
             weight: avatarAnimationGapTime),
       ],
     ).animate(_scaleController);
     textOpacityAnimation = TweenSequence([
       // 文本消失
       TweenSequenceItem(
-        tween: Tween(begin: 1.0 / 1.2, end: 0.0),
+        tween: Tween(begin: 1.0 / HomeTopCard.avatarScaleValue, end: 0.0),
         weight: textDisappearTime,
       ),
       // 卡片滑下来

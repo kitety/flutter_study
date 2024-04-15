@@ -5,6 +5,7 @@ import 'package:flutter_study/pages/home/widgets/homeContent.dart';
 import 'package:flutter_study/utils/unit.dart';
 
 class UserCard extends StatelessWidget {
+  static double bottomContainerHeight = 50;
   final bool isWhite;
   final void Function(User user) handleHiBtnClick;
   final User user;
@@ -59,6 +60,7 @@ class UserCard extends StatelessWidget {
         ),
         Container(
           width: double.infinity,
+          height: UserCard.bottomContainerHeight,
           padding: const EdgeInsets.all(5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
