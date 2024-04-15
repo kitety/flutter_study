@@ -64,6 +64,12 @@ class _HomeTopCardState extends State<HomeTopCard>
             HomeTopCard.topPadding) +
         HomeTopCard.tryBoostContainerHeight +
         HomeTopCard.topCardBottomPadding;
+
+    double slidePositionTop =
+        cardTranslateAnimation.value * HomeTopCard.tryBoostContainerHeight +
+            (contentHeight -
+                HomeTopCard.slideAnimationHeight -
+                HomeTopCard.tryBoostContainerHeight);
     final mainTopUsersContent = Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
@@ -133,11 +139,7 @@ class _HomeTopCardState extends State<HomeTopCard>
                   ),
                 )),
             Positioned(
-              top: cardTranslateAnimation.value *
-                      HomeTopCard.tryBoostContainerHeight +
-                  (contentHeight -
-                      HomeTopCard.slideAnimationHeight -
-                      HomeTopCard.tryBoostContainerHeight),
+              top: slidePositionTop,
               left: 0,
               right: 0,
               child: Container(
@@ -188,7 +190,6 @@ class _HomeTopCardState extends State<HomeTopCard>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _controller.dispose();
     _scaleController.dispose();
@@ -287,6 +288,7 @@ class _HomeTopCardState extends State<HomeTopCard>
             weight: avatarAnimationGapTime),
       ],
     ).animate(_scaleController);
+
     textOpacityAnimation = TweenSequence([
       // 文本消失
       TweenSequenceItem(
