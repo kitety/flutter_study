@@ -24,6 +24,7 @@ class _DiamondShopPageState extends State<DiamondShopPage> {
 
   @override
   Widget build(BuildContext context) {
+    // AnimatedOpacity
     return Scaffold(
         appBar: buildAppBar(),
         // 后面需要替换为滚动组件
@@ -45,54 +46,57 @@ class _DiamondShopPageState extends State<DiamondShopPage> {
                     JoinVipCardWidget(),
                   ],
                 );
-          return CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              // 顶部余额
-              SliverPadding(
-                padding: const EdgeInsets.all(0),
-                sliver: SliverToBoxAdapter(
-                  child: BalanceWidget(
-                    balance: controller.diamondShop?.stoneBalance ?? 0,
+          return Container(
+            // color: Colors.amber,
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                // 顶部余额
+                SliverPadding(
+                  padding: const EdgeInsets.all(0),
+                  sliver: SliverToBoxAdapter(
+                    child: BalanceWidget(
+                      balance: controller.diamondShop?.stoneBalance ?? 0,
+                    ),
                   ),
                 ),
-              ),
-              // 最受欢迎的
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(25, 31, 25, 0),
-                sliver: SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      // most popular
-                      PopularCard(
-                        promotion: controller.diamondShop!.mostPopular,
-                      ),
-                      vipPartContent,
-                    ],
+                // 最受欢迎的
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(25, 31, 25, 0),
+                  sliver: SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        // most popular
+                        PopularCard(
+                          promotion: controller.diamondShop!.mostPopular,
+                        ),
+                        vipPartContent,
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // 下面的两列卡片
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(25, 38, 25, 40),
-                sliver: SliverGrid(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final promotion =
-                          controller.diamondShop!.promotions[index];
-                      return BuyStoneCardWidget(promotion: promotion);
-                    },
-                    childCount: controller.diamondShop!.promotions.length,
-                  ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisExtent: BuyStoneCardWidget.cardHeight,
-                    mainAxisSpacing: 15,
+                // 下面的两列卡片
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(25, 38, 25, 40),
+                  sliver: SliverGrid(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final promotion =
+                            controller.diamondShop!.promotions[index];
+                        return BuyStoneCardWidget(promotion: promotion);
+                      },
+                      childCount: controller.diamondShop!.promotions.length,
+                    ),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisExtent: BuyStoneCardWidget.cardHeight,
+                      mainAxisSpacing: 15,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         }));
   }
@@ -167,7 +171,8 @@ class _DiamondShopPageState extends State<DiamondShopPage> {
       double currentScrollOffset = _scrollController.offset;
       print('$currentScrollOffset');
       setState(() {
-        isShowAction = currentScrollOffset >= BalanceWidget.containerHeight;
+        isShowAction =
+            currentScrollOffset >= BalanceWidget.scrollHeightToShowAction;
       });
     });
   }

@@ -13,7 +13,7 @@ const singleStoneImg = "images/diamond_shop/single.png";
 
 class BuyStoneCardWidget extends StatelessWidget {
   // 这个卡片的宽高比
-  static const cardHeight = 195.0;// 395.0;
+  static const cardHeight = 495.0; // 395.0;
   final Promotion promotion;
   const BuyStoneCardWidget({Key? key, required this.promotion})
       : super(key: key);
@@ -36,33 +36,42 @@ class BuyStoneCardWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Image(
-                image: AssetImage(imgSrc),
-                height: 33,
-              ),
-              Text(
-                '${promotion.count}',
-                style: TitleText_24,
-              ),
-              const SizedBox(height: 2),
-              Container(
-                width: 88,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image:
-                        AssetImage('images/diamond_shop/tips_bg.png'), // 背景图片路径
-                    fit: BoxFit.contain, // 图片填充方式
-                  ),
-                ),
-                child: Text(
-                  '+${promotion.increaseCount}',
-                  style: BodyText_16,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 14),
               // 自动占据剩余区域
-              Expanded(child: Container()),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image(
+                      image: AssetImage(imgSrc),
+                      height: 33,
+                    ),
+                    Text(
+                      '${promotion.count}',
+                      style: TitleText_24,
+                    ),
+                    const SizedBox(height: 2),
+                    Container(
+                      width: 88,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'images/diamond_shop/tips_bg.png'), // 背景图片路径
+                          fit: BoxFit.contain, // 图片填充方式
+                        ),
+                      ),
+                      child: Text(
+                        '+${promotion.increaseCount}',
+                        style: BodyText_16,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // const SizedBox(height: 14),
+              // // 自动占据剩余区域
+              // Expanded(child: Container()),
               GradientBtn(
                 height: 36.0,
                 text: formatPrice(promotion.money),

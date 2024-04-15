@@ -6,6 +6,7 @@ class DiamondShopController extends GetxController {
   bool isFailed = false;
   bool isLoading = true;
   DiamondShop? diamondShop;
+  String status='loading';// error....
   void initDiamondShopData() async {
     try {
       diamondShop = await ApiService.getDiamondShopData();

@@ -56,6 +56,7 @@ class _HomeTopCardState extends State<HomeTopCard>
       ),
       vsync: this,
     );
+    // AnimatedOpacity
     scaleAnimation = TweenSequence(
       [
         TweenSequenceItem(
@@ -73,6 +74,7 @@ class _HomeTopCardState extends State<HomeTopCard>
             weight: avatarAnimationGapTime),
       ],
     ).animate(_scaleController);
+    // _scaleController.forward()
 
     textOpacityAnimation = TweenSequence([
       // 文本消失
@@ -207,6 +209,7 @@ class _HomeTopCardState extends State<HomeTopCard>
         ],
       ),
     );
+    // AnimatedOpacity
     final content = Column(
       children: [
         Stack(
@@ -245,23 +248,28 @@ class _HomeTopCardState extends State<HomeTopCard>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Transform.scale(
-                          scale: scaleAnimation.value *
-                              HomeTopCard.avatarScaleValue,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 16, right: 8),
-                            child: const CircleAvatar(
-                              radius: 12,
-                              backgroundImage: AssetImage("images/avatar.png"),
+                    GestureDetector(
+                      onTap: handleInstantCloseSlide,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Transform.scale(
+                            scale: scaleAnimation.value *
+                                HomeTopCard.avatarScaleValue,
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.only(left: 16, right: 8),
+                              child: const CircleAvatar(
+                                radius: 12,
+                                backgroundImage:
+                                    AssetImage("images/avatar.png"),
+                              ),
                             ),
                           ),
-                        ),
-                        const Text('Your profiles is in boost'),
-                      ],
+                          const Text('Your profiles is in boost'),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 6,
@@ -345,6 +353,11 @@ class _HomeTopCardState extends State<HomeTopCard>
         _scaleController.stop();
       }
     });
+  }
+
+  void handleInstantCloseSlide() {
+    // _controller.reset();
+    // _scaleController.reset();
   }
 
   @override

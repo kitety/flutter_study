@@ -8,7 +8,7 @@ import '../utils/random_num.dart';
 
 class ApiService {
   static Future<DiamondShop> getDiamondShopData() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 4));
     const fakeAjaxRes =
         '{"isVip":false,"stoneBalance":52678,"vipCardPrice":610,"mostPopular":{"count":150,"increaseCount":30,"money":10.56,"isShowTip":true,"tipText":"Most popular","type":""},"promotions":[{"count":123,"increaseCount":20,"money":13.56,"isShowTip":true,"tipText":"Best Value","type":"single"},{"count":500,"increaseCount":88,"money":43.56,"isBestValue":false,"isShowTip":false,"tipText":"","type":"two"},{"count":1000,"increaseCount":200,"money":83.56,"isBestValue":false,"isShowTip":false,"tipText":"","type":"box"}]}';
     final data = diamondShopFromJson(fakeAjaxRes);

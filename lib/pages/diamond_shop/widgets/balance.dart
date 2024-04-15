@@ -8,20 +8,14 @@ class BalanceWidget extends StatelessWidget {
   static double textHeight = 23.0;
   static double textPaddingBottom = 9.0;
   static double balanceContentHeight = 43.0;
-  static double bottomPadding = 36.0;
-  // 高度和
-  static double containerHeight = topPadding +
-      textHeight +
-      textPaddingBottom +
-      balanceContentHeight +
-      bottomPadding;
+  static double scrollHeightToShowAction =
+      topPadding + textHeight + textPaddingBottom + balanceContentHeight;
   final int balance;
   const BalanceWidget({Key? key, required this.balance}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: containerHeight,
       decoration: BoxDecoration(
         gradient: btnBgLinearGradient,
       ),
@@ -30,26 +24,30 @@ class BalanceWidget extends StatelessWidget {
           SizedBox(
             height: topPadding,
           ),
-          Text(
-            LT.t?.Purchase_DiamondShopBalance_PageText1 ?? '',
-            style: BodyText_16.copyWith(color: White_FFF),
+          SizedBox(
+            height: textHeight,
+            child: Text(
+              LT.t?.Purchase_DiamondShopBalance_PageText1 ?? '',
+              style: BodyText_16.copyWith(color: White_FFF),
+            ),
           ),
           SizedBox(
             height: textPaddingBottom,
           ),
-          buildBalanceCountWidget(),
           SizedBox(
-            height: bottomPadding,
+              height: balanceContentHeight, child: buildBalanceCountWidget()),
+          const SizedBox(
+            height: 36,
           ),
         ],
       ),
     );
   }
 
-  Row buildBalanceCountWidget() {
+  Widget buildBalanceCountWidget() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
           '$balance',
